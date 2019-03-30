@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { DollService } from '../doll/doll.service';
-import { PlayerService, PlayerStatus } from '../player/player.service';
+import { PlayerService, PlayerStatus, TrackPosition } from '../player/player.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
 
 @Component({
@@ -9,32 +9,26 @@ import { BitValuesUtil } from '../../utils/bitValues.util';
 })
 export class RecorderComponent {
   private spaceKeyPressed = 0;
-  private recordedData = [];
-  private fps = 8;
-  private timeout = 1000 / this.fps;
+  private recordedDataByteLength = 14500;
+  private recordedData = new Uint8Array(this.recordedDataByteLength);
 
   constructor(private dollService: DollService,
               private playerService: PlayerService,
   ) {
+    this.playerService.onPositionChanged.subscribe((trackPosition: TrackPosition) => {
+      const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
+      this.recordedData[index] = BitValuesUtil.set([this.spaceKeyPressed]);
+    });
+
     playerService.status.subscribe((status: PlayerStatus) => {
       if (status === PlayerStatus.PLAY) {
-        console.log('record start');
-        this.recordedData = [];
-
-        setInterval(() => {
-          const value = BitValuesUtil.set([this.spaceKeyPressed]);
-          this.recordedData.push(value);
-        }, this.timeout);
+        this.recordedData.fill(0);
       } else if (status === PlayerStatus.FINISHED) {
-        console.log('record stop');
-        console.log(this.recordedData);
-        const buffer = (new Uint8Array(this.recordedData)).buffer;
-
-        const blob = new Blob([buffer], {type: 'text/plain'});
+        const blob = new Blob([this.recordedData.buffer], {type: 'application/octet-stream'});
         const a = document.createElement('a');
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'recorded';
+        a.download = 'what-is-love.data';
         a.click();
         window.URL.revokeObjectURL(url);
       }
