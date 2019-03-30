@@ -55,11 +55,10 @@ export class ControlComponent implements OnInit {
       this.subMap = subMap;
       this.draw();
 
-      if (BitValuesUtil.getBit(this.subMap[0], 0) === this.spacePressed) {
-        this.scoreService.incrase();
-      } else {
-        this.scoreService.reduce();
-      }
+      this.setScore(this.spacePressed, 0);
+      this.setScore(this.arrowRightPressed, 1);
+      this.setScore(this.arrowLeftPressed, 2);
+      this.setScore(this.keyWPressed, 3);
     });
   }
 
@@ -143,5 +142,15 @@ export class ControlComponent implements OnInit {
         }
       });
     });
+  }
+
+  private setScore(keyPressed: boolean, bitIndex: number): void {
+    if (keyPressed) {
+      if (BitValuesUtil.getBit(this.subMap[0], bitIndex) === keyPressed) {
+        this.scoreService.incrase();
+      } else {
+        this.scoreService.reduce();
+      }
+    }
   }
 }
