@@ -1,13 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "variables";
 @import 'reset';
 
 body {
   font-family: 'Righteous', cursive;
-  background: linear-gradient(#395165, #223242);
   color: $theme-yellow;
   background-repeat: no-repeat;
   height: 100vh;
+  background: linear-gradient(359deg, #3c5f56, #324d5a, #3f3358);
+  background-size: 600% 600%;
+  animation: background 23s ease infinite;
 
+}
+
+@keyframes background {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
 }
