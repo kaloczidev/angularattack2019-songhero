@@ -7,6 +7,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @ViewChild('modal') modal: ElementRef;
+  hidden = false;
+  closed = false;
 
   constructor() { }
 
@@ -14,14 +16,14 @@ export class ModalComponent implements OnInit {
   }
 
   close() {
-    this.modal.nativeElement.className += ' close';
+    this.closed = true;
   }
 
   open() {
 
   }
 
-  animationend(event) {
-    this.modal.nativeElement.className += ' hidden';
+  animationend() {
+    this.hidden = true;
   }
 }

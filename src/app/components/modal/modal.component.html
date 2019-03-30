@@ -1,4 +1,7 @@
-<div class="container" #modal (transitionend)="animationend($event)">
+<div class="container" #modal (transitionend)="animationend()" [ngClass]="{
+  close: closed,
+  hidden: hidden
+}">
   <div class="modal">
     <ng-content></ng-content>
   </div>
