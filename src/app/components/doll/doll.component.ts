@@ -8,7 +8,7 @@ import { DollService } from './doll.service';
 })
 export class DollComponent implements OnInit {
   @ViewChild('mouth') mouth: ElementRef<SVGPathElement>;
-
+  public kacsint: boolean = false;
   private currentY = 0;
   private minY = 0;
   private maxY = 80;
@@ -24,6 +24,7 @@ export class DollComponent implements OnInit {
       this.stopMouthAnimation();
       this.animateMouth();
     });
+    setInterval( () => {this.kacsint = !this.kacsint}, 100);
   }
 
   private animateMouth = (): void => {
