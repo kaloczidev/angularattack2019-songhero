@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "variables";
+@import 'reset';
+
+body {
+  font-family: 'Righteous', cursive;
+  background-color: $theme-background;
+  color: $theme-yellow;
+}
