@@ -11,6 +11,7 @@ import { AudioComponent } from './components/audio/audio.component';
 import { ControlComponent } from './components/control/control.component';
 import { ScoreComponent } from './components/score/score.component';
 import { StartupComponent } from './components/startup/startup.component';
+import { BackgroundComponent } from './components/background/background.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { StartupComponent } from './components/startup/startup.component';
     PlayerComponent,
     ScoreComponent,
     StartupComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,
