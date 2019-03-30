@@ -2,7 +2,7 @@
   close: closed,
   hidden: hidden
 }" (click)="close()">
-  <div class="modal">
+  <div class="modal" (click)="stopProp($event)">
     <ng-content></ng-content>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostBinding, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -9,7 +9,6 @@ export class ModalComponent implements OnInit {
   @ViewChild('modal') modal: ElementRef;
   hidden = true;
   closed = false;
-  @Output() onclose: EventEmitter<any> = new EventEmitter();
   @HostBinding('class.hidden') hiddenHost = false;
 
   constructor() { }
@@ -28,6 +27,9 @@ export class ModalComponent implements OnInit {
   transitionend() {
     this.hidden = true;
     this.hiddenHost = true;
-    this.onclose.emit();
+  }
+
+  stopProp(event: MouseEvent) {
+    event.stopPropagation();
   }
 }

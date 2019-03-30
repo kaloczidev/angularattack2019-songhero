@@ -14,8 +14,4 @@ export class StartupComponent implements OnInit {
   ngOnInit() {
     this.modal.open();
   }
-
-  close() {
-
-  }
 }
