@@ -15,7 +15,8 @@
     font-size: 1rem;
   }
   .score-value {
-    text-shadow: 0px 0px 4px #2fe592;
+    text-shadow: -1px -1px 0 $stroke-color, 1px -1px 0 $stroke-color, -1px 1px 0 $stroke-color, 1px 1px 0 $stroke-color;
+
     transition: transform linear .1s;
     &.change {
       animation: enlarge .1s linear;
