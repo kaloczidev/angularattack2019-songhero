@@ -21,4 +21,7 @@ export class ModalComponent implements OnInit {
 
   }
 
+  animationend(event) {
+    this.modal.nativeElement.className += ' hidden';
+  }
 }

@@ -12,10 +12,7 @@
   }
 }
 
-.close {
-  animation: 0.5s opacity ease-in-out;
-  opacity: 0;
-}
+
 
 :host {
   width: 100%;
@@ -35,10 +32,14 @@
   animation-name: background;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.64);
 
   &.close {
     transition: 0.3s opacity ease-in-out;
     opacity: 0;
+  }
+  &.hidden {
+    display: none;
   }
 
   .modal {

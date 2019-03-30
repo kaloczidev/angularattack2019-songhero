@@ -16,13 +16,15 @@ $color-modal: #424242;
 }
 
 .type-header {
-  margin-top: 150px;
+  margin-top: 40px;
   color: $color-modal;
 }
 
 .types {
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 

@@ -1,4 +1,4 @@
-<div class="container" #modal>
+<div class="container" #modal (transitionend)="animationend($event)">
   <div class="modal">
     <ng-content></ng-content>
   </div>
