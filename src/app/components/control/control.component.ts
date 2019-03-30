@@ -23,7 +23,11 @@ export class ControlComponent implements OnInit {
   private ctx: CanvasRenderingContext2D;
 
   private subMap: Uint8Array;
-  private spaceKeyPressed = 0;
+
+  private spacePressed = false;
+  private arrowRightPressed = false;
+  private arrowLeftPressed = false;
+  private keyWPressed = false;
 
   constructor(private service: ControlService,
               private dollService: DollService,
@@ -37,7 +41,7 @@ export class ControlComponent implements OnInit {
       this.subMap = subMap;
       this.draw();
 
-      if (BitValuesUtil.getBit(this.subMap[0], 0) === !!this.spaceKeyPressed) {
+      if (BitValuesUtil.getBit(this.subMap[0], 0) === this.spacePressed) {
         this.scoreService.incrase();
       } else {
         this.scoreService.reduce();
@@ -54,27 +58,36 @@ export class ControlComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
+    event.preventDefault();
+
     if (event.code === 'Space') {
-      this.spaceKeyPressed = 1;
+      this.spacePressed = true;
       this.dollService.openMouth();
-      event.preventDefault();
-    }
-    if (event.code === 'ArrowRight') {
+    } else if (event.code === 'ArrowRight') {
+      this.arrowRightPressed = true;
       this.dollService.bolintRight();
-    }
-    if (event.code === 'ArrowLeft') {
+    } else if (event.code === 'ArrowLeft') {
+      this.arrowLeftPressed = true;
       this.dollService.bolintLeft();
-    }
-    if (event.code === 'KeyW') {
+    } else if (event.code === 'KeyW') {
+      this.keyWPressed = true;
       this.dollService.doWink();
     }
   }
 
   @HostListener('window:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
+    event.preventDefault();
+
     if (event.code === 'Space') {
-      this.spaceKeyPressed = 0;
+      this.spacePressed = false;
       this.dollService.closeMouth();
+    } else if (event.code === 'ArrowRight') {
+      this.arrowRightPressed = false;
+    } else if (event.code === 'ArrowLeft') {
+      this.arrowLeftPressed = false;
+    } else if (event.code === 'KeyW') {
+      this.keyWPressed = false;
     }
   }
 
@@ -86,11 +99,8 @@ export class ControlComponent implements OnInit {
     this.ctx.fillStyle = '#FC6E51';
     this.yArray.forEach((y: number, xIndex: number) => {
       this.xArray.forEach((x: number, yIndex: number) => {
-        if (this.isHighlighted(xIndex, yIndex)) {
-          this.ctx.fillRect(x, y, 10, 20);
-        } else {
-          this.ctx.clearRect(x, y, 10, 20);
-        }
+        if (this.isHighlighted(xIndex, yIndex)) this.ctx.fillRect(x, y, 10, 20);
+        else this.ctx.clearRect(x, y, 10, 20);
       });
     });
   }
