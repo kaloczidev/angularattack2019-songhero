@@ -1,14 +1,38 @@
-svg {
-  border: 1px solid red;
-}
 
-circle {
+.playback-circle {
   fill: rgba(255, 255, 255, .1);
   stroke-width: 1px;
   stroke: rgba(255, 255, 255, .2);
+  transform-origin: 154px 314px;
+  transition: fill .12s ease, transform .12s ease;
+  &:nth-child(4n+1) {
+    transform: rotate(6deg);
+  }
+  &:nth-child(4n+2) {
+    transform: rotate(2deg);
+  }
+  &:nth-child(4n+3) {
+    transform: rotate(-2deg);
+  }
+  &:nth-child(4n+4) {
+    transform: rotate(-6deg);
+  }
 }
 
+
 .highlight {
-  fill: #FC6E51;
+  fill: #fc5aa4;
   stroke: none;
+  //animation: play-circle-animation 1s linear infinite;
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes play-circle-animation {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: translateY(-50px);
+  }
 }
