@@ -5,42 +5,19 @@ import { BitValuesUtil } from '../../utils/bitValues.util';
 
 @Component({
   selector: 'app-recorder',
-  styles: [`
-    :host {
-      position: fixed;
-      top: 0;
-      right: 0;
-      background: red;
-      color: white;
-      font-size: 20px;
-      padding: 10px;
-    }
-  `],
-  template: 'RECORDER: Don\'t forget to remove!!!!',
+  template: '',
 })
 export class RecorderComponent {
-  private spacePressed = 0;
-  private arrowRightPressed = 0;
-  private arrowLeftPressed = 0;
-  private keyWPressed = 0;
-
-  private recordedDataByteLength = 14500; // TODO: sound duration * ????
   private spaceKeyPressed = 0;
-  private spaceKeySignal = new Subject<number>();
-
+  private recordedDataByteLength = 14500;
   private recordedData = new Uint8Array(this.recordedDataByteLength);
 
   constructor(private dollService: DollService,
               private playerService: PlayerService,
   ) {
-
-    this.spaceKeySignal.pipe(auditTime(50)).subscribe(val => {
-      this.spaceKeyPressed = val;
-    });
-
     this.playerService.onPositionChanged.subscribe((trackPosition: TrackPosition) => {
       const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
-      this.recordedData[index] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.arrowLeftPressed, this.keyWPressed]);
+      this.recordedData[index] = BitValuesUtil.set([this.spaceKeyPressed]);
     });
 
     playerService.status.subscribe((status: PlayerStatus) => {
@@ -60,36 +37,17 @@ export class RecorderComponent {
 
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
-    event.preventDefault();
-
     if (event.code === 'Space') {
-      this.spacePressed = 1;
+      this.spaceKeyPressed = 1;
       this.dollService.openMouth();
-    } else if (event.code === 'ArrowRight') {
-      this.arrowRightPressed = 1;
-      this.dollService.bolintRight();
-    } else if (event.code === 'ArrowLeft') {
-      this.arrowLeftPressed = 1;
-      this.dollService.bolintLeft();
-    } else if (event.code === 'KeyW') {
-      this.keyWPressed = 1;
-      this.dollService.doWink();
     }
   }
 
   @HostListener('window:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
-    event.preventDefault();
-
     if (event.code === 'Space') {
-      this.spacePressed = 0;
+      this.spaceKeyPressed = 0;
       this.dollService.closeMouth();
-    } else if (event.code === 'ArrowRight') {
-      this.arrowRightPressed = 0;
-    } else if (event.code === 'ArrowLeft') {
-      this.arrowLeftPressed = 0;
-    } else if (event.code === 'KeyW') {
-      this.keyWPressed = 0;
     }
   }
 }
