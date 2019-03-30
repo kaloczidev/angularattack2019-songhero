@@ -38,34 +38,20 @@ const byteStreamGenerator = function *(K) {
   }
 };
 
-export class RC4Class {
+export class Encryptor {
   privateKey: any;
   encryptKey: any;
-  constructor(key) {
+  constructor(key: string) {
     if (!key) console.error('Must pass the key to constructor');
     this.privateKey = keySetup(key);
     this.encryptKey = key;
   }
-  encrypt(input) {
-    if (!input) return console.log('no input of encrypt');
+  encrypt(input): string {
     let outputText = '';
     const byteStream = byteStreamGenerator([...this.privateKey]);
 
     for (let i = 0, ii = input.length; i < ii; i++) {
       outputText += ('00' + (input.charCodeAt(i) ^ byteStream.next().value).toString(16)).substr(-2) ;
-    }
-
-    return outputText;
-  }
-  decrypt(input) {
-    if (!input) return console.log('no input of decrypt');
-    let outputText = '';
-    const byteStream = byteStreamGenerator([...this.privateKey]);
-
-    input = input.match(/[a-z0-9]{2}/gi);
-
-    for (let i = 0, ii = input.length; i < ii; i++) {
-      outputText += String.fromCharCode((parseInt(input[i], 16) ^ byteStream.next().value));
     }
 
     return outputText;

@@ -8,7 +8,7 @@ const config = {
   databaseURL: 'https://song-hero.firebaseio.com',
   projectId: 'song-hero',
   storageBucket: 'song-hero.appspot.com',
-  messagingSenderId: '625261084375'
+  messagingSenderId: '625261084375',
 };
 
 export default firebase.initializeApp(config);
