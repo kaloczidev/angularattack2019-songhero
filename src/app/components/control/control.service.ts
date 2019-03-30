@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { PlayerService } from '../../services/player/player.service';
+import { PlayerService } from '../player/player.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ControlService {
   position: Subject<number> = new Subject();
 
   constructor(private playerService: PlayerService) {
-    this.playerService.position.subscribe((trackPosition) => {
+    this.playerService.onPositionChanged.subscribe((trackPosition) => {
       const index = this.map.length * trackPosition.relativePosition | 0;
       console.log(index);
     });

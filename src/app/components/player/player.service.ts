@@ -19,7 +19,8 @@ export enum PlayerStatus {
 export class PlayerService {
   status = new BehaviorSubject<PlayerStatus>(null);
   urlChange = new BehaviorSubject<string>('');
-  position = new Subject<TrackPosition>();
+  onPositionChanged = new Subject<TrackPosition>();
+  onFinished = new Subject<TrackPosition>();
 
   constructor() {
   }
