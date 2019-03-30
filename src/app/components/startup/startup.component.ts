@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 
 @Component({
@@ -12,6 +12,6 @@ export class StartupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.modal.open();
+    // this.modal.open();
   }
 }

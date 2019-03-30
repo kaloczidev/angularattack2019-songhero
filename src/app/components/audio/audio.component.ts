@@ -11,6 +11,10 @@ export class AudioComponent implements OnInit {
 
   songs = [
     {
+      name: 'WhatIsLove',
+      trackId: '34743391'
+    },
+    {
       name: 'Robin Schulz - Sun Goes Down',
       trackId: '167810531'
     },
@@ -21,10 +25,6 @@ export class AudioComponent implements OnInit {
     {
       name: 'Random',
       trackId: '208277289'
-    },
-    {
-      name: 'WhatIsLove',
-      trackId: '34743391'
     }
   ];
 
