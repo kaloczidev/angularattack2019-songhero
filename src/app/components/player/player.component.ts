@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {PlayerService, PlayerStatus} from '../../services/player/player.service';
+import {PlayerService, PlayerStatus, TrackPosition} from '../../services/player/player.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {filter} from 'rxjs/operators';
 
 declare var SC: any;
 
@@ -47,5 +46,9 @@ export class PlayerComponent implements OnInit {
 
   onload() {
     if (this.player.status.getValue() === PlayerStatus.PLAY) { this.play(); }
+    SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY_PROGRESS);
+    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => {
+      this.player.position.next(event);
+    });
   }
 }

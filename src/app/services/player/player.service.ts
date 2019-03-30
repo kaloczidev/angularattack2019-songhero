@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
+export interface TrackPosition {
+  currentPosition: number;
+  loadedProgress: number;
+  relativePosition: number;
+  soundId: number;
+}
+
 export enum PlayerStatus {
   PLAY,
   PAUSE
@@ -12,6 +19,7 @@ export enum PlayerStatus {
 export class PlayerService {
   status = new BehaviorSubject<PlayerStatus>(null);
   urlChange = new BehaviorSubject<string>('');
+  position = new BehaviorSubject<TrackPosition>(null);
   constructor() {
   }
   play() {
