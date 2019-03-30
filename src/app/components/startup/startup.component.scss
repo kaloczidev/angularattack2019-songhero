@@ -1,0 +1,101 @@
+@keyframes background {
+  from {background-color: rgba(96,125,139, 0.0)}
+  to {background-color: rgba(96,125,139, 0.7)}
+}
+
+@keyframes modal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1
+  }
+}
+
+.close {
+  animation: 0.5s opacity ease-in-out;
+  opacity: 0;
+}
+
+:host {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+$color-modal: #424242;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(96,125,139, 0.7);
+  animation-name: background;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+
+  &.close {
+    transition: 0.3s opacity ease-in-out;
+    opacity: 0;
+  }
+
+  .modal {
+    color: $color-modal;
+    font-family: "Courier New";
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+    animation-name: modal;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+
+.icon-wrapper {
+  display: flex;
+  justify-content: space-between;
+  .title {
+    color: $color-modal;
+    font-size: 32px;
+  }
+  .icon {
+    cursor: pointer;
+
+    &:hover {
+      color: #2fe592;
+    }
+  }
+}
+
+.type-header {
+  margin-top: 150px;
+}
+
+.types {
+  display: flex;
+  flex-direction: row;
+}
+
+.type {
+  width: 50px;
+  height: 50px;
+  color: $color-modal;
+  border: 1px solid $color-modal;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+
