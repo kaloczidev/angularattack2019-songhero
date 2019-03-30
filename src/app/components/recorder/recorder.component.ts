@@ -38,7 +38,7 @@ export class RecorderComponent {
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.spaceKeyPressed = 0;
+      this.spaceKeyPressed = 1;
       this.dollService.openMouth();
     }
   }
@@ -46,7 +46,7 @@ export class RecorderComponent {
   @HostListener('window:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.spaceKeyPressed = 1;
+      this.spaceKeyPressed = 0;
       this.dollService.closeMouth();
     }
   }
