@@ -1,2 +1,7 @@
-press space
-<canvas class="display" #display></canvas>
+<svg width="500" height="1000" viewBox="0 0 500 1000">
+  <ng-container *ngFor="let cy of [40, 120, 200, 280, 360, 440, 520, 600]; index as x">
+    <ng-container *ngFor="let cx of [40, 120, 200, 280]; index as y">
+      <circle [attr.cx]="cx" [attr.cy]="cy" [attr.r]="30" [ngClass]="{highlight: isHightlighted(x, y)}"/>
+    </ng-container>
+  </ng-container>
+</svg>
