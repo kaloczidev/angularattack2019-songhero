@@ -9,10 +9,10 @@ export class DollService {
   mouthDirection: Subject<number> = new Subject();
 
   openMouth() {
-    this.mouthDirection.next(10);
+    this.mouthDirection.next(20);
   }
 
   closeMouth() {
-    this.mouthDirection.next(-10);
+    this.mouthDirection.next(-20);
   }
 }

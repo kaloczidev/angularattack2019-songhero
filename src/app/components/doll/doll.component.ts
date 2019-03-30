@@ -12,7 +12,7 @@ export class DollComponent implements OnInit {
   private currentY = 0;
   private minY = 0;
   private maxY = 200;
-  private direction = 10;
+  private direction = 20;
   private requestId = null;
 
   constructor(private service: DollService) {
