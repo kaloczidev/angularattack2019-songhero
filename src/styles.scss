@@ -5,9 +5,10 @@
 body {
   font-family: 'Righteous', cursive;
   color: $theme-yellow;
-  background-repeat: no-repeat;
   height: 100vh;
-  background: linear-gradient(359deg, #3c5f56, #324d5a, #3f3358);
+  //background: linear-gradient(359deg, #8A2387, #E94057, #F27121) no-repeat;
+  //background: linear-gradient(359deg, #2B0B32, #4C2252, #2B0B32) no-repeat;
+  background: linear-gradient(359deg, #3c5f56, #324d5a, #3f3358) no-repeat;
   background-size: 600% 600%;
   animation: background 23s ease infinite;
 
