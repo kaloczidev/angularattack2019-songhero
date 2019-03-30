@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { ControlService } from './control.service';
 import { DollService } from '../doll/doll.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
@@ -13,19 +13,23 @@ const whatIsLoveBuffer: ArrayBuffer = require('./what-is-love.data');
   styleUrls: ['./control.component.scss'],
 })
 export class ControlComponent {
-  z: Uint8Array;
+  yArray = Array.from(new Array(30), (val, index) => index * 20 + 20);
 
+  private subMap: Uint8Array;
   private spaceKeyPressed = 0;
 
-
   constructor(private service: ControlService,
-              private dollService: DollService
+              private dollService: DollService,
+              private cdr: ChangeDetectorRef,
   ) {
-    this.z = new Uint8Array(4 * 8);
-    this.z.fill(0);
+    this.subMap = new Uint8Array(4 * 30);
+    this.subMap.fill(0);
 
     service.map = new Uint8Array(whatIsLoveBuffer);
-    service.subMap.subscribe((subMap: Uint8Array) => this.z = subMap);
+    service.subMap.subscribe((subMap: Uint8Array) => {
+      this.subMap = subMap;
+      this.cdr.detectChanges();
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -35,9 +39,13 @@ export class ControlComponent {
       this.dollService.openMouth();
       event.preventDefault();
     }
-    if(event.code === 'ArrowRight') this.dollService.bolintRight();
-    if(event.code === 'ArrowLeft') this.dollService.bolintLeft();
-    if(event.code === 'KeyW') {
+    if (event.code === 'ArrowRight') {
+      this.dollService.bolintRight();
+    }
+    if (event.code === 'ArrowLeft') {
+      this.dollService.bolintLeft();
+    }
+    if (event.code === 'KeyW') {
       this.dollService.doWink();
     }
   }
@@ -51,6 +59,6 @@ export class ControlComponent {
   }
 
   isHighlighted(x: number, y: number): boolean {
-    return BitValuesUtil.getBit(this.z[x], y);
+    return BitValuesUtil.getBit(this.subMap[x], y);
   }
 }

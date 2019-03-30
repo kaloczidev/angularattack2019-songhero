@@ -11,8 +11,10 @@ export class ControlService {
 
   constructor(private playerService: PlayerService) {
     this.playerService.onPositionChanged.subscribe((trackPosition) => {
-      const index = this.map.length * trackPosition.relativePosition | 0;
-      this.subMap.next(this.map.subarray(index, index + 8));
+      const index = (this.map.length * trackPosition.relativePosition | 0) - 2;
+      if (index > 0) {
+        this.subMap.next(this.map.subarray(index, index + 30));
+      }
     });
   }
 }

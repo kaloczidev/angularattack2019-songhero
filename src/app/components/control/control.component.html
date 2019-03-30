@@ -1,7 +1,9 @@
-<svg width="500" height="1000" viewBox="0 0 500 1000">
-  <ng-container *ngFor="let cy of [40, 120, 200, 280, 360, 440, 520, 600]; index as x">
-    <ng-container *ngFor="let cx of [40, 120, 200, 280]; index as y">
-      <circle [attr.cx]="cx" [attr.cy]="cy" [attr.r]="28" [ngClass]="{highlight: isHighlighted(x, y)}" class="playback-circle"/>
+<svg width="500" height="800" viewBox="0 0 500 800">
+  <ng-container
+    *ngFor="let cy of yArray; index as x">
+    <ng-container *ngFor="let cx of [20, 40, 60, 80]; index as y">
+      <rect [attr.x]="cx" [attr.y]="cy" width="10" height="20" [ngClass]="{highlight: isHighlighted(29-x, y)}"
+            class="playback-symbol"/>
     </ng-container>
   </ng-container>
 </svg>
