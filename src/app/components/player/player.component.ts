@@ -1,6 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PlayerService, PlayerStatus, TrackPosition} from './player.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import * as MobileDetect from 'mobile-detect';
 
 declare var SC: any;
 
@@ -14,8 +15,11 @@ export class PlayerComponent implements OnInit {
 
   BASE_URL = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
   url: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
+  md = new MobileDetect(window.navigator.userAgent);
+  iframeHide = true;
+  accessed = false;
 
-  constructor(private player: PlayerService, private sanitizer: DomSanitizer) {
+  constructor(private player: PlayerService, private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -38,6 +42,8 @@ export class PlayerComponent implements OnInit {
   }
 
   play() {
+    this.pause();
+    this.accessed = false;
     SC.Widget(this.audio.nativeElement).play();
   }
   pause() {
@@ -47,6 +53,18 @@ export class PlayerComponent implements OnInit {
   onload() {
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY_PROGRESS);
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.FINISH);
+    SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY);
+
+    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY, (event: TrackPosition) => {
+      if (this.accessed && !this.iframeHide) {
+        this.iframeHide = true;
+        this.cdr.detectChanges();
+      }
+      if (this.md.mobile() || this.md.tablet() || this.md.phone()) {
+        this.iframeHide = false;
+        this.accessed = true;
+      }
+    });
 
     SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.FINISH, (event: TrackPosition) => {
       this.player.status.next(PlayerStatus.FINISHED);

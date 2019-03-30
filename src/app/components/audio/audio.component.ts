@@ -31,7 +31,7 @@ export class AudioComponent implements OnInit {
   constructor(private player: PlayerService) { }
 
   ngOnInit() {
-    this.player.setUrl(this.songs[1].trackId);
+    this.player.setUrl(this.songs[0].trackId);
     this.player.onPositionChanged.subscribe((actual) => {
       const current = actual.currentPosition / 1000 | 0;
       const minute = current / 60 | 0;

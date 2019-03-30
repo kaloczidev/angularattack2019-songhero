@@ -27,10 +27,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
+              "src/styles.scss"
+            ],
+            "scripts": [
               "src/assets/api.js"
             ],
-            "scripts": [],
             "es5BrowserSupport": true
           },
           "configurations": {
