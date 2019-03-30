@@ -1,4 +1,36 @@
+
+:host {
+  height: 100vh;
+  overflow: hidden;
+  display: block;
+}
 .layout {
   display: grid;
+  grid-template-rows: 50px 1fr 40px;
   grid-template-columns: 40% 60%;
+  grid-template-areas: 'logo logo'
+                        'guy   controlls'
+                        'footer footer'
+;
+  height: 100vh;
+  .logo {
+    grid-area: logo;
+    padding: 20px;
+    transform: rotate(-15deg);
+  }
+
+  app-doll {
+    grid-area: guy;
+  }
+
+  app-control {
+    grid-area: controlls;
+  }
+  .footer {
+    grid-area: footer;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+  }
 }

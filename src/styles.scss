@@ -13,6 +13,13 @@ body {
 
 }
 
+a {
+  color: inherit;
+  &:hover, &:active, &:visited {
+    color: inherit;
+  }
+}
+
 @keyframes background {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
