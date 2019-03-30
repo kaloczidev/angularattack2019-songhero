@@ -6980,11 +6980,6 @@ uglify-js@^3.1.4:
     commander "~2.19.0"
     source-map "~0.6.1"
 
-uint8array-loader@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/uint8array-loader/-/uint8array-loader-1.0.2.tgz#3ec7cf7dd93314f2f7f75bcf4da4836383f3bbd1"
-  integrity sha1-PsfPfdkzFPL391vPTaSDY4Pzu9E=
-
 ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"

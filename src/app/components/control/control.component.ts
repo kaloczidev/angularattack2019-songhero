@@ -20,8 +20,11 @@ export class ControlComponent implements OnInit {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
-  private yArray = Array.from(new Array(DISPLAY_VERTICAL_DIVISION), (val, index) => index * 20 + 20);
-  private xArray = Array.from(new Array(DISPLAY_HORIZONTAL_DIVISION), (val, index) => index * 20 + 20);
+  private unitHeight: number;
+  private unitWidth: number;
+  private yArray;
+  private xArray;
+
   private akarmi = DISPLAY_VERTICAL_DIVISION - 1;
 
   private subMap: Uint8Array;
@@ -35,11 +38,20 @@ export class ControlComponent implements OnInit {
               private dollService: DollService,
               private scoreService: ScoreService
   ) {
+  }
+
+  ngOnInit(): void {
+    this.canvas = this.display.nativeElement;
+    this.canvas.width = 500;
+    this.canvas.height = 800;
+    this.ctx = this.canvas.getContext('2d');
+    this.calculateCanvasSize();
+
     this.subMap = new Uint8Array(4 * 30);
     this.subMap.fill(0);
 
-    service.map = new Uint8Array(whatIsLoveBuffer);
-    service.subMap.subscribe((subMap: Uint8Array) => {
+    this.service.map = new Uint8Array(whatIsLoveBuffer);
+    this.service.subMap.subscribe((subMap: Uint8Array) => {
       this.subMap = subMap;
       this.draw();
 
@@ -49,13 +61,6 @@ export class ControlComponent implements OnInit {
         this.scoreService.reduce();
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.canvas = this.display.nativeElement;
-    this.canvas.width = 500;
-    this.canvas.height = 800;
-    this.ctx = this.canvas.getContext('2d');
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -93,6 +98,24 @@ export class ControlComponent implements OnInit {
     }
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    this.calculateCanvasSize();
+  }
+
+  private calculateCanvasSize() {
+    const height = window.innerHeight * 0.8 | 0;
+
+    this.canvas.width = 160;
+    this.canvas.height = height;
+
+    this.unitHeight = height / DISPLAY_VERTICAL_DIVISION | 0;
+    this.unitWidth = 10;
+
+    this.yArray = Array.from(new Array(DISPLAY_VERTICAL_DIVISION), (val, index) => index * this.unitHeight);
+    this.xArray = Array.from(new Array(DISPLAY_HORIZONTAL_DIVISION), (val, index) => index * 50);
+  }
+
   private isHighlighted(x: number, y: number): boolean {
     return BitValuesUtil.getBit(this.subMap[this.akarmi - x], y);
   }
@@ -102,9 +125,9 @@ export class ControlComponent implements OnInit {
       this.xArray.forEach((x: number, yIndex: number) => {
         if (this.isHighlighted(xIndex, yIndex)) {
           this.ctx.fillStyle = DISPLAY_COLORS[yIndex];
-          this.ctx.fillRect(x, y, 10, 20);
+          this.ctx.fillRect(x, y, this.unitWidth, this.unitHeight + 1);
         } else {
-          this.ctx.clearRect(x, y, 10, 20);
+          this.ctx.clearRect(x, y, this.unitWidth, this.unitHeight + 1);
         }
       });
     });
