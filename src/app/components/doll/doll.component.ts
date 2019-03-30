@@ -18,7 +18,7 @@ export class DollComponent implements OnInit {
   constructor(private service: DollService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.service.mouthDirection.subscribe((direction) => {
       this.direction = direction;
       this.stopAnimation();
