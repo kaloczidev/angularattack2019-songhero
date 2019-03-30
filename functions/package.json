@@ -11,6 +11,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "bad-words": "^3.0.2",
     "esm": "^3.2.22",
     "firebase-admin": "~7.0.0",
     "firebase-functions": "^2.2.0",
