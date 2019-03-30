@@ -13,43 +13,31 @@ export class ControlComponent implements OnInit {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
+  private spaceKeyPressed = 0;
+
   constructor(private service: ControlService,
               private dollService: DollService
   ) {
   }
 
   ngOnInit(): void {
-    const b = this.setBits([1, 0, 1, 0]);
-    console.log(b);
-
-    const a = this.getBits(b);
-    console.log(a);
-
     this.canvas = this.display.nativeElement;
     this.ctx = this.canvas.getContext('2d');
-
-    let i = 0;
-
-    setInterval(() => {
-      const map = this.service.map.subarray(i, i + 4);
-      if (map.length) {
-        this.draw(map);
-      }
-      ++i;
-    }, 1000 / 16);
-  }
-
-  @HostListener('window:keyup', ['$event'])
-  keyUp(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.dollService.closeMouth();
-    }
   }
 
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
+      this.spaceKeyPressed = 0;
       this.dollService.openMouth();
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyUp(event: KeyboardEvent) {
+    if (event.code === 'Space') {
+      this.spaceKeyPressed = 1;
+      this.dollService.closeMouth();
     }
   }
 
@@ -74,23 +62,5 @@ export class ControlComponent implements OnInit {
     // this.ctx.strokeStyle = 'red';
     // this.ctx.stroke();
     this.ctx.fill();
-  }
-
-  private getBits(value: number): Array<number> {
-    const result = new Array(8);
-    for (let i = 0; i < 8; ++i) {
-      result[i] = value & (1 << i) ? 1 : 0;
-    }
-    return result;
-  }
-
-  private setBits(values: Array<number>): number {
-    let result = 0;
-    for (let i = 0; i < 8; ++i) {
-      if (values[i]) {
-        result |= 1 << i;
-      }
-    }
-    return result;
   }
 }
