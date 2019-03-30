@@ -2,6 +2,10 @@ import { Component, HostListener } from '@angular/core';
 import { ControlService } from './control.service';
 import { DollService } from '../doll/doll.service';
 
+declare function require(name: string);
+
+const buffer = require('./what-is-love.data');
+
 @Component({
   selector: 'app-control',
   templateUrl: './control.component.html',
@@ -13,6 +17,7 @@ export class ControlComponent {
   constructor(private service: ControlService,
               private dollService: DollService
   ) {
+    console.log(new Uint8Array(buffer));
   }
 
   @HostListener('window:keydown', ['$event'])

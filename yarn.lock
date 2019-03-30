@@ -757,6 +757,13 @@ array-unique@^0.3.2:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
 
+arraybuffer-loader@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/arraybuffer-loader/-/arraybuffer-loader-1.0.7.tgz#1045f87e187c7d5da59a4391572d30504ca135ad"
+  integrity sha512-8FPjFP26OF723Oiaj5E208WW2tAgE0noCsrtQZ20TwdHt6qs5iuAaKqX5WY/C3wYdF/2cRUiuIXj98qy/2NB7g==
+  dependencies:
+    loader-utils "^1.1.0"
+
 arraybuffer.slice@~0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/arraybuffer.slice/-/arraybuffer.slice-0.0.7.tgz#3bbc4275dd584cc1b10809b89d4e8b63a69e7675"
@@ -6723,6 +6730,11 @@ uglify-js@^3.1.4:
     commander "~2.19.0"
     source-map "~0.6.1"
 
+uint8array-loader@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/uint8array-loader/-/uint8array-loader-1.0.2.tgz#3ec7cf7dd93314f2f7f75bcf4da4836383f3bbd1"
+  integrity sha1-PsfPfdkzFPL391vPTaSDY4Pzu9E=
+
 ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
@@ -6751,11 +6763,6 @@ unique-slug@^2.0.0:
   integrity sha512-n9cU6+gITaVu7VGj1Z8feKMmfAjEAQGhwD9fE3zvpRRa0wEIx8ODYkVGfSc94M2OX00tUFV8wH3zYbm1I8mxFg==
   dependencies:
     imurmurhash "^0.1.4"
-
-unit8array-loader@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/unit8array-loader/-/unit8array-loader-1.0.1.tgz#ce1b8432b2cec695e1802766d4a3e4e013b5e53f"
-  integrity sha1-zhuEMrLOxpXhgCdm1KPk4BO15T8=
 
 universalify@^0.1.0:
   version "0.1.2"
