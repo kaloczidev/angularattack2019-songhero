@@ -7,6 +7,10 @@ export class BitValuesUtil {
     return result;
   }
 
+  static getBit(value: number, index: number): boolean {
+    return !!(value & (1 << index));
+  }
+
   static set(values: Array<number>): number {
     let result = 0;
     for (let i = 0; i < 8; ++i) {

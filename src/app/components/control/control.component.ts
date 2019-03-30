@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { ControlService } from './control.service';
 import { DollService } from '../doll/doll.service';
+import { BitValuesUtil } from '../../utils/bitValues.util';
 
 declare function require(name: string);
 
@@ -12,12 +13,19 @@ const whatIsLoveBuffer: ArrayBuffer = require('./what-is-love.data');
   styleUrls: ['./control.component.scss'],
 })
 export class ControlComponent {
+  z: Uint8Array;
+
   private spaceKeyPressed = 0;
+
 
   constructor(private service: ControlService,
               private dollService: DollService
   ) {
-    console.log(new Uint8Array(whatIsLoveBuffer));
+    this.z = new Uint8Array(4 * 8);
+    this.z.fill(0);
+
+    service.map = new Uint8Array(whatIsLoveBuffer);
+    service.subMap.subscribe((subMap: Uint8Array) => this.z = subMap);
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -43,6 +51,6 @@ export class ControlComponent {
   }
 
   isHighlighted(x: number, y: number): boolean {
-    return x === 1 && y === 2;
+    return BitValuesUtil.getBit(this.z[x], y);
   }
 }
