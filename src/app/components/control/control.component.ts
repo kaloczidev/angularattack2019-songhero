@@ -65,49 +65,49 @@ export class ControlComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
-
-    let van = false;
+    let usePreventDefault = false;
 
     if (event.code === 'Space') {
       this.spacePressed = true;
       this.dollService.openMouth();
-      van = true;
+      usePreventDefault = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = true;
       this.dollService.bolintRight();
-      van = true;
+      usePreventDefault = true;
     } else if (event.code === 'ArrowLeft') {
       this.arrowLeftPressed = true;
       this.dollService.bolintLeft();
-      van = true;
+      usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = true;
       this.dollService.doWink();
-      van = true;
+      usePreventDefault = true;
     }
-    if(van) event.preventDefault();
+
+    if (usePreventDefault) event.preventDefault();
   }
 
   @HostListener('window:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
-    let van = false;
+    let usePreventDefault = false;
 
     if (event.code === 'Space') {
       this.spacePressed = false;
       this.dollService.closeMouth();
-      van = true;
+      usePreventDefault = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = false;
-      van = true;
+      usePreventDefault = true;
     } else if (event.code === 'ArrowLeft') {
       this.arrowLeftPressed = false;
-      van = true;
+      usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = false;
-      van = true;
+      usePreventDefault = true;
     }
 
-    if(van) event.preventDefault();
+    if (usePreventDefault) event.preventDefault();
   }
 
   @HostListener('window:resize')
@@ -116,7 +116,7 @@ export class ControlComponent implements OnInit {
   }
 
   private calculateCanvasSize() {
-    const height = window.innerHeight -90 | 0;
+    const height = window.innerHeight - 90 | 0;
 
     this.canvas.width = 460;
     this.canvas.height = height;
