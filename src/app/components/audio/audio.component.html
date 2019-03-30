@@ -1,9 +1,9 @@
-
 <div *ngFor="let song of songs">
   {{song.name}}
   <button (click)="play(song.trackId)">Play</button>
 </div>
 <button (click)="pause()">Pause</button>
-{{current}}
+<div #time>
+</div>
 
 

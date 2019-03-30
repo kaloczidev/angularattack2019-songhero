@@ -20,7 +20,6 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     this.player.status.subscribe((status) => {
-      console.log(status);
       switch (status) {
         case PlayerStatus.PLAY: this.play(); break;
         case PlayerStatus.PAUSE: this.pause(); break;

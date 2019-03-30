@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PlayerService} from '../../services/player/player.service';
 
 @Component({
@@ -7,8 +7,7 @@ import {PlayerService} from '../../services/player/player.service';
   styleUrls: ['./audio.component.scss']
 })
 export class AudioComponent implements OnInit {
-
-  current = 0;
+  @ViewChild('time') time: ElementRef;
 
   songs = [
     {
@@ -34,8 +33,11 @@ export class AudioComponent implements OnInit {
   ngOnInit() {
     this.player.setUrl(this.songs[1].trackId);
     this.player.position.subscribe((actual) => {
-      // this.current = actual.currentPosition;
-      // console.log(actual.currentPosition);
+      const current = actual.currentPosition / 1000 | 0;
+      const minute = current / 60 | 0;
+      const second = (current - minute * 60);
+      const sec: string = second < 10 ? `0${second}` : second.toString();
+      this.time.nativeElement.innerText = `${minute}:${sec}`;
     });
   }
 
