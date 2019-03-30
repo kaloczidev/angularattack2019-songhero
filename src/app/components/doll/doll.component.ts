@@ -31,12 +31,14 @@ export class DollComponent implements OnInit {
       this.stopMouthAnimation();
       this.animateMouth();
     });
-    this.service.headBolintas.subscribe( deg => {
+    this.service.headBolintas.subscribe(deg => {
       this.stopBolint();
       this.doBolint();
       this.bolint(deg);
     });
-
+    this.service.wink.subscribe( (a) => {
+      this.doKacsint();
+    });
     setInterval(this.doKacsint, 2000);
   }
 
@@ -45,7 +47,7 @@ export class DollComponent implements OnInit {
     setTimeout(() => {
       this.kacsint = false;
     }, 100);
-  }
+  };
 
   private animateMouth = (): void => {
     this.currentY += this.direction;
@@ -71,16 +73,27 @@ export class DollComponent implements OnInit {
   }
 
   private doBolint = () => {
-    if(this.headRotation !== 0) {
-      if (this.headRotation > 0) this.headRotation -= 0.5;
-      if (this.headRotation < 0) this.headRotation += 0.5;
+    if (this.headRotation !== 0) {
+      if (this.headRotation > 0) {
+        this.headRotation -= 0.5;
+      }
+      if (this.headRotation < 0) {
+        this.headRotation += 0.5;
+      }
     }
-    if(this.headRotation > this.headMax ) this.headRotation = this.headMax ;
-    if(this.headRotation < this.headMin ) this.headRotation = this.headMin;
+    if (this.headRotation > this.headMax) {
+      this.headRotation = this.headMax;
+    }
+    if (this.headRotation < this.headMin) {
+      this.headRotation = this.headMin;
+    }
     this.face.nativeElement.setAttribute('style', `transform: rotate(${this.headRotation}deg)`);
-    if(this.headRotation > this.headMax  || this.headRotation < this.headMin ) this.stopBolint();
-    else this.headFrameRequestId = window.requestAnimationFrame(this.doBolint);
-  }
+    if (this.headRotation > this.headMax || this.headRotation < this.headMin) {
+      this.stopBolint();
+    } else {
+      this.headFrameRequestId = window.requestAnimationFrame(this.doBolint);
+    }
+  };
 
 
   private stopMouthAnimation(): void {

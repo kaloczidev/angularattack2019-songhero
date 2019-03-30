@@ -29,6 +29,9 @@ export class ControlComponent {
     }
     if(event.code === 'ArrowRight') this.dollService.bolintRight();
     if(event.code === 'ArrowLeft') this.dollService.bolintLeft();
+    if(event.code === 'KeyW') {
+      this.dollService.doWink();
+    }
   }
 
   @HostListener('window:keyup', ['$event'])
