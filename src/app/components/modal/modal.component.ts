@@ -9,7 +9,7 @@ export class ModalComponent implements OnInit {
   @ViewChild('modal') modal: ElementRef;
   hidden = true;
   closed = false;
-  @HostBinding('class.hidden') hiddenHost = false;
+  @HostBinding('class.hidden') hiddenHost = true;
 
   constructor() { }
 
@@ -21,6 +21,7 @@ export class ModalComponent implements OnInit {
   }
 
   open() {
+    this.hiddenHost = false;
     this.hidden = false;
   }
 

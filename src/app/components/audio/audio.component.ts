@@ -37,7 +37,7 @@ export class AudioComponent implements OnInit {
       const minute = current / 60 | 0;
       const second = (current - minute * 60);
       const sec: string = second < 10 ? `0${second}` : second.toString();
-      this.time.nativeElement.innerText = `${minute}:${sec}`;
+      this.time.nativeElement.innerText = `${actual.relativePosition * 100 | 0}% ${minute}:${sec}`;
     });
   }
 

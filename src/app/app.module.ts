@@ -14,6 +14,7 @@ import { ScoreComponent } from './components/score/score.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { BackgroundComponent } from './components/background/background.component';
 import { StartupComponent } from './components/startup/startup.component';
+import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { StartupComponent } from './components/startup/startup.component';
     ModalComponent,
     BackgroundComponent,
     StartupComponent,
+    ScoreboardComponent,
   ],
   imports: [
     BrowserModule,
