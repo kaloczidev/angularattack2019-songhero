@@ -7,7 +7,7 @@ export const save = (name, score) => {
   return new Promise((resolve, reject) => {
     firebase.auth().signInAnonymously().then(() => {
       db
-        .add({name: name, score: score})
+        .add({name, score})
         .then((docRef) => resolve(docRef))
         .catch((error) => reject(error));
     }).catch((error) => reject(error));
