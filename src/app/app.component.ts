@@ -1,5 +1,4 @@
-import { Component, HostListener } from '@angular/core';
-import { DollService } from './components/doll/doll.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,21 +6,6 @@ import { DollService } from './components/doll/doll.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private dollService: DollService) {
-
-  }
-
-  @HostListener('window:keyup', ['$event'])
-  keyUp(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.dollService.closeMouth();
-    }
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  keyDown(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.dollService.openMouth();
-    }
+  constructor() {
   }
 }

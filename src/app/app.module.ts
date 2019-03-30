@@ -9,12 +9,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {AudioSourceService} from './services/player/audio-source.service';
 import {PlayerService} from './services/player/player.service';
 import { AudioComponent } from './components/audio/audio.component';
+import { ControlComponent } from './components/control/control.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AudioComponent,
+    ControlComponent,
     DollComponent,
-    AudioComponent
   ],
   imports: [
     BrowserModule,
