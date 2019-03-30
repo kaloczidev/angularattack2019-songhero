@@ -9,6 +9,7 @@ import {PlayerService} from './services/player/player.service';
 import { PlayerComponent } from './components/player/player.component';
 import { AudioComponent } from './components/audio/audio.component';
 import { ControlComponent } from './components/control/control.component';
+import { ScoreComponent } from './components/score/score.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ControlComponent } from './components/control/control.component';
     ControlComponent,
     DollComponent,
     PlayerComponent,
+    ScoreComponent,
   ],
   imports: [
     BrowserModule,
