@@ -4,10 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DollComponent } from './components/doll/doll.component';
-import {ApiService} from './services/api.service';
 import {HttpClientModule} from '@angular/common/http';
-import {AudioSourceService} from './services/player/audio-source.service';
 import {PlayerService} from './services/player/player.service';
+import { PlayerComponent } from './components/player/player.component';
 import { AudioComponent } from './components/audio/audio.component';
 import { ControlComponent } from './components/control/control.component';
 
@@ -17,13 +16,14 @@ import { ControlComponent } from './components/control/control.component';
     AudioComponent,
     ControlComponent,
     DollComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ApiService, AudioSourceService, PlayerService],
+  providers: [PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

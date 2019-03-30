@@ -30,7 +30,14 @@ export class AudioComponent implements OnInit {
   constructor(private player: PlayerService) { }
 
   ngOnInit() {
-    this.player.play(this.songs[1].trackId);
   }
 
+  play(url: string) {
+    this.player.setUrl(url);
+    this.player.play();
+  }
+
+  pause() {
+    this.player.pause();
+  }
 }

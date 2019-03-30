@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
-import {AudioSourceService} from './audio-source.service';
-import {ApiService} from '../api.service';
+import {BehaviorSubject} from 'rxjs';
+
+export enum PlayerStatus {
+  PLAY,
+  PAUSE
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-
-  constructor(private audioSource: AudioSourceService, private apiService: ApiService) {
-
+  status = new BehaviorSubject<PlayerStatus>(null);
+  urlChange = new BehaviorSubject<string>('');
+  constructor() {
+  }
+  play() {
+    this.status.next(PlayerStatus.PLAY);
   }
 
-
-  play(url: string) {
-    this.apiService.getTrack(url).subscribe((track) => {
-      if (track.hasOwnProperty('stream_url')) {
-        this.audioSource.setTrack(this.makeUrl(track.stream_url));
-        this.audioSource.play();
-      }
-    });
+  pause() {
+    this.status.next(PlayerStatus.PAUSE);
   }
-
-  makeUrl(url: string): string {
-    return `${url}?client_id=${this.apiService.CLIENT_ID}`;
+  setUrl(url: string) {
+    this.urlChange.next(url);
   }
-
 }
