@@ -32,7 +32,7 @@ export class ControlComponent {
     }
   }
 
-  isHightlighted(x: number, y: number): boolean {
+  isHighlighted(x: number, y: number): boolean {
     return x === 1 && y === 2;
   }
 }
