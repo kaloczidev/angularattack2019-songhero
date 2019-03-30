@@ -1,3 +1,20 @@
 .guy-container {
   padding: 20px;
+  padding-top: 80px;
+  padding-left:  120px;
+}
+
+.right-arm {
+  transform-origin: 175px 355px;
+  animation: guy-hand 6s linear infinite;
+}
+
+
+@keyframes guy-hand {
+  from, to {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
 }

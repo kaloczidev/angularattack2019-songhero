@@ -9,3 +9,19 @@
   z-index: -1;
 
 }
+
+.stagelight-container {
+  animation: swing 16s linear infinite;
+  transform-origin: 50% 0;
+  display: inline-block;
+}
+
+@keyframes swing {
+  from, to {
+    transform: rotate(-5deg) translateX(-110px) translateY(-100px);
+  }
+  50% {
+    transform: rotate(5deg) translateX(110px) translateY(-100px);
+  }
+
+}

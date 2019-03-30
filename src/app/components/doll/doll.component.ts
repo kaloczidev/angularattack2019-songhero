@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DollService } from './doll.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {DollService} from './doll.service';
 
 @Component({
   selector: 'app-doll',
@@ -24,7 +24,14 @@ export class DollComponent implements OnInit {
       this.stopMouthAnimation();
       this.animateMouth();
     });
-    setInterval( () => {this.kacsint = !this.kacsint}, 100);
+    setInterval(this.doKacsint, 2000);
+  }
+
+  private doKacsint = () => {
+    this.kacsint = true;
+    setTimeout(() => {
+      this.kacsint = false;
+    }, 100);
   }
 
   private animateMouth = (): void => {

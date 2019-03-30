@@ -30,6 +30,7 @@ export class ControlComponent implements OnInit {
     if (event.code === 'Space') {
       this.spaceKeyPressed = 0;
       this.dollService.openMouth();
+      event.preventDefault();
     }
   }
 
