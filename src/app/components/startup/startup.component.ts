@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-startup',
@@ -9,9 +10,15 @@ import {ModalComponent} from '../modal/modal.component';
 export class StartupComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
-    // this.modal.open();
+    if (this.appService.showStartUp.getValue()) this.modal.open();
+  }
+
+  onStart(showDialogAgain: boolean) {
+    this.appService.showStartUp.next(!showDialogAgain);
+    localStorage.setItem('startUp', JSON.stringify(!showDialogAgain));
+    this.modal.close();
   }
 }

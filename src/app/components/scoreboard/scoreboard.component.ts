@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-scoreboard',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scoreboard.component.scss']
 })
 export class ScoreboardComponent implements OnInit {
+  public scores: Array<{name: string; score: number}> = [];
+  @ViewChild('modal') modal: ModalComponent;
 
   constructor() { }
 
   ngOnInit() {
+    //this.modal.open();
   }
 
 }

@@ -15,6 +15,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { BackgroundComponent } from './components/background/background.component';
 import { StartupComponent } from './components/startup/startup.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
+import { AppService } from './services/app.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { ScoreboardComponent } from './components/scoreboard/scoreboard.componen
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [PlayerService],
+  providers: [AppService, PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
