@@ -10,7 +10,7 @@ import { BitValuesUtil } from '../../utils/bitValues.util';
 export class RecorderComponent {
   private spaceKeyPressed = 0;
   private recordedData = [];
-  private fps = 16;
+  private fps = 8;
   private timeout = 1000 / this.fps;
 
   constructor(private dollService: DollService,

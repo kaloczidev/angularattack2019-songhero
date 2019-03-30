@@ -39,7 +39,6 @@ export class DollComponent implements OnInit {
     this.service.wink.subscribe( (a) => {
       this.doKacsint();
     });
-    setInterval(this.doKacsint, 2000);
   }
 
   private doKacsint = () => {
