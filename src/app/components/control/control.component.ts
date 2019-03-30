@@ -27,6 +27,8 @@ export class ControlComponent {
       this.dollService.openMouth();
       event.preventDefault();
     }
+    if(event.code === 'ArrowRight') this.dollService.bolintRight();
+    if(event.code === 'ArrowLeft') this.dollService.bolintLeft();
   }
 
   @HostListener('window:keyup', ['$event'])

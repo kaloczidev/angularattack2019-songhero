@@ -9,6 +9,10 @@
   animation: guy-hand 6s linear infinite;
 }
 
+.face {
+  transform-origin: 115px 326px;
+}
+
 
 @keyframes guy-hand {
   from, to {

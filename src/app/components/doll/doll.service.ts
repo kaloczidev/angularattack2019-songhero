@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class DollService {
   mouthDirection: Subject<number> = new Subject();
+  headBolintas: Subject<number> = new Subject();
 
   openMouth() {
     this.mouthDirection.next(10);
@@ -14,5 +15,15 @@ export class DollService {
 
   closeMouth() {
     this.mouthDirection.next(-10);
+  }
+
+
+  bolintRight(): any {
+    this.headBolintas.next(8);
+  }
+
+
+  bolintLeft(): any {
+    this.headBolintas.next(-8);
   }
 }
