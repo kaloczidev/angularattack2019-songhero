@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { ControlService } from './control.service';
 import { DollService } from '../doll/doll.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
+import { ScoreService } from '../score/score.service';
 
 declare function require(name: string);
 
@@ -25,7 +26,8 @@ export class ControlComponent implements OnInit {
   private spaceKeyPressed = 0;
 
   constructor(private service: ControlService,
-              private dollService: DollService
+              private dollService: DollService,
+              private scoreService: ScoreService
   ) {
     this.subMap = new Uint8Array(4 * 30);
     this.subMap.fill(0);
@@ -34,6 +36,12 @@ export class ControlComponent implements OnInit {
     service.subMap.subscribe((subMap: Uint8Array) => {
       this.subMap = subMap;
       this.draw();
+
+      if (BitValuesUtil.getBit(this.subMap[0], 0) === !!this.spaceKeyPressed) {
+        this.scoreService.incrase();
+      } else {
+        this.scoreService.reduce();
+      }
     });
   }
 
@@ -47,7 +55,7 @@ export class ControlComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.spaceKeyPressed = 0;
+      this.spaceKeyPressed = 1;
       this.dollService.openMouth();
       event.preventDefault();
     }
@@ -65,7 +73,7 @@ export class ControlComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.spaceKeyPressed = 1;
+      this.spaceKeyPressed = 0;
       this.dollService.closeMouth();
     }
   }
