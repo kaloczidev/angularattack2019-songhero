@@ -11,8 +11,9 @@ import { PlayerComponent } from './components/player/player.component';
 import { PlayerService } from './components/player/player.service';
 import { RecorderComponent } from './components/recorder/recorder.component';
 import { ScoreComponent } from './components/score/score.component';
-import { StartupComponent } from './components/startup/startup.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { BackgroundComponent } from './components/background/background.component';
+import { StartupComponent } from './components/startup/startup.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +24,9 @@ import { BackgroundComponent } from './components/background/background.componen
     PlayerComponent,
     RecorderComponent,
     ScoreComponent,
-    StartupComponent,
+    ModalComponent,
     BackgroundComponent,
+    StartupComponent,
   ],
   imports: [
     BrowserModule,
