@@ -1,9 +1,1 @@
-<svg width="500" height="800" viewBox="0 0 500 800">
-  <ng-container
-    *ngFor="let cy of yArray; index as x">
-    <ng-container *ngFor="let cx of [20, 40, 60, 80]; index as y">
-      <rect [attr.x]="cx" [attr.y]="cy" width="10" height="20" [ngClass]="{highlight: isHighlighted(29-x, y)}"
-            class="playback-symbol"/>
-    </ng-container>
-  </ng-container>
-</svg>
+<canvas class="display" #display></canvas>
