@@ -23,17 +23,18 @@ export class AudioComponent implements OnInit {
     },
     {
       name: 'WhatIsLove',
-      trackId: '86589991'
+      trackId: '34743391'
     }
   ];
 
   constructor(private player: PlayerService) { }
 
   ngOnInit() {
+    this.player.setUrl(this.songs[1].trackId);
   }
 
-  play(url: string) {
-    this.player.setUrl(url);
+  play(id: string) {
+    this.player.setUrl(id);
     this.player.play();
   }
 

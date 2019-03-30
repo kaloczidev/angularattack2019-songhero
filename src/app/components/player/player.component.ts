@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PlayerService, PlayerStatus} from '../../services/player/player.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {filter} from 'rxjs/operators';
 
 declare var SC: any;
 
@@ -20,12 +21,15 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     this.player.status.subscribe((status) => {
+      console.log(status);
       switch (status) {
         case PlayerStatus.PLAY: this.play(); break;
         case PlayerStatus.PAUSE: this.pause(); break;
       }
     });
-    this.player.urlChange.subscribe((url) => {
+
+    this.player.urlChange
+      .subscribe((url) => {
       this.setUrl(url);
     });
   }
