@@ -21,13 +21,12 @@ export class DollComponent implements OnInit {
   ngOnInit(): void {
     this.service.mouthDirection.subscribe((direction) => {
       this.direction = direction;
-      this.stopAnimation();
-      this.animation();
+      this.stopMouthAnimation();
+      this.animateMouth();
     });
   }
 
-  private animation = (): void => {
-    this.mouth.nativeElement.setAttribute('d', `M0,0 Q 120,${this.currentY} 200,0Z`);
+  private animateMouth = (): void => {
     this.currentY += this.direction;
 
     if (this.currentY < this.minY) {
@@ -36,18 +35,19 @@ export class DollComponent implements OnInit {
       this.currentY = this.maxY;
     }
 
+    this.mouth.nativeElement.setAttribute('d', `M0,0 Q 120,${this.currentY} 200,0Z`);
+
     if (this.currentY === this.minY || this.currentY === this.maxY) {
-      this.stopAnimation();
+      this.stopMouthAnimation();
     } else {
-      window.requestAnimationFrame(this.animation);
+      this.requestId = window.requestAnimationFrame(this.animateMouth);
     }
   };
 
-  private stopAnimation(): void {
-    if (this.requestId === null) {
-      return;
+  private stopMouthAnimation(): void {
+    if (this.requestId !== null) {
+      window.cancelAnimationFrame(this.requestId);
+      this.requestId = null;
     }
-    window.cancelAnimationFrame(this.requestId);
-    this.requestId = null;
   }
 }
