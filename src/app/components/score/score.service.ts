@@ -13,10 +13,12 @@ export class ScoreService {
   }
 
   incrase(value: number = 1): void {
-    this.score.next(this.score.getValue() + value);
+    this.score.next(this.score.value + value);
   }
 
   reduce(value: number = 1): void {
-    this.score.next(this.score.getValue() - value);
+    if (this.score.value !== 0) {
+      this.score.next(this.score.value - value);
+    }
   }
 }
