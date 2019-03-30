@@ -8,6 +8,8 @@ import {PlayerService} from '../../services/player/player.service';
 })
 export class AudioComponent implements OnInit {
 
+  current = 0;
+
   songs = [
     {
       name: 'Robin Schulz - Sun Goes Down',
@@ -31,6 +33,10 @@ export class AudioComponent implements OnInit {
 
   ngOnInit() {
     this.player.setUrl(this.songs[1].trackId);
+    this.player.position.subscribe((actual) => {
+      // this.current = actual.currentPosition;
+      // console.log(actual.currentPosition);
+    });
   }
 
   play(id: string) {
