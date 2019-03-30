@@ -35,7 +35,18 @@ export class DollComponent implements OnInit {
       this.currentY = this.maxY;
     }
 
-    this.mouth.nativeElement.setAttribute('d', `M0,0 Q 120,${this.currentY} 200,0Z`);
+    // from => to:
+    // M191.102 259.969s-20.99 57.29-59.102 56.913c-39.023-.386-63.109-71.555-63.109-71.555l122.211 14.642z
+    // M191.102 259.969s-20.99 14.29-59.102 13.913c-39.023-.386-63.109-28.555-63.109-28.555l122.211 14.642z
+    // const normalize1 = (54 - 14) / 100 * this.currentY + 14;
+    // const normalize2 = (56 - 14) / 100 * this.currentY + 14;
+    // const normalize3 = (71 - 28) / 100 * this.currentY + 28;
+    // console.log(this.currentY, normalize1);
+    this.mouth.nativeElement.setAttribute('d',
+      // `M0,0 Q 120,${this.currentY} 200,0Z`
+      `M191 100 Q 150,${this.currentY}  200 100 Z`
+    // `M191.102 259.969s-20.99 ${normalize1}-59.102 ${normalize2}c-39.023-.386-63.109-${normalize3}-63.109-71.555l122.211 14.642z`
+    );
 
     if (this.currentY === this.minY || this.currentY === this.maxY) {
       this.stopMouthAnimation();
