@@ -1,4 +1,4 @@
-<app-modal #element>
+<app-modal #modal (onclose)="close()" >
   <div class="icon-wrapper">
     <div class="title">
       Hello, human!
@@ -13,5 +13,8 @@
     <div class="key">W</div>
     <div class="key">E</div>
     <div class="key">R</div>
+  </div>
+  <div class="start-button-wrapper">
+    <button class="start-button">Yess, bring it on!</button>
   </div>
 </app-modal>

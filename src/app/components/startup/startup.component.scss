@@ -78,3 +78,22 @@ $color-modal: #424242;
     0 0 3px #333;
   border-top: 1px solid #eee;
 }
+
+.start-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  .start-button {
+    border: 0;
+    padding: 12px;
+    background-color: #0097a7;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  display: none;
+}
