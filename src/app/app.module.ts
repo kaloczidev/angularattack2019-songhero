@@ -10,6 +10,7 @@ import { PlayerComponent } from './components/player/player.component';
 import { AudioComponent } from './components/audio/audio.component';
 import { ControlComponent } from './components/control/control.component';
 import { ScoreComponent } from './components/score/score.component';
+import { StartupComponent } from './components/startup/startup.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ScoreComponent } from './components/score/score.component';
     DollComponent,
     PlayerComponent,
     ScoreComponent,
+    StartupComponent,
   ],
   imports: [
     BrowserModule,

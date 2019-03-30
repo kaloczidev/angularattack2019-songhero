@@ -10,17 +10,18 @@ export interface TrackPosition {
 
 export enum PlayerStatus {
   PLAY,
-  PAUSE
+  PAUSE,
+  FINISHED,
+  IDLE
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-  status = new BehaviorSubject<PlayerStatus>(null);
+  status = new BehaviorSubject<PlayerStatus>(PlayerStatus.IDLE);
   urlChange = new BehaviorSubject<string>('');
   onPositionChanged = new Subject<TrackPosition>();
-  onFinished = new Subject<TrackPosition>();
 
   constructor() {
   }

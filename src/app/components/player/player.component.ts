@@ -23,6 +23,7 @@ export class PlayerComponent implements OnInit {
       switch (status) {
         case PlayerStatus.PLAY: this.play(); break;
         case PlayerStatus.PAUSE: this.pause(); break;
+        default: break;
       }
     });
 
@@ -48,7 +49,7 @@ export class PlayerComponent implements OnInit {
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.FINISH);
 
     SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.FINISH, (event: TrackPosition) => {
-      this.player.onFinished.next(event);
+      this.player.status.next(PlayerStatus.FINISHED);
     });
     SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => {
       this.player.onPositionChanged.next(event);
