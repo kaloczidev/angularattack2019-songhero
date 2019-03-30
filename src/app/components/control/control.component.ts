@@ -65,37 +65,49 @@ export class ControlComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
-    event.preventDefault();
+
+    let van = false;
 
     if (event.code === 'Space') {
       this.spacePressed = true;
       this.dollService.openMouth();
+      van = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = true;
       this.dollService.bolintRight();
+      van = true;
     } else if (event.code === 'ArrowLeft') {
       this.arrowLeftPressed = true;
       this.dollService.bolintLeft();
+      van = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = true;
       this.dollService.doWink();
+      van = true;
     }
+    if(van) event.preventDefault();
   }
 
   @HostListener('window:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
-    event.preventDefault();
+    let van = false;
 
     if (event.code === 'Space') {
       this.spacePressed = false;
       this.dollService.closeMouth();
+      van = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = false;
+      van = true;
     } else if (event.code === 'ArrowLeft') {
       this.arrowLeftPressed = false;
+      van = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = false;
+      van = true;
     }
+
+    if(van) event.preventDefault();
   }
 
   @HostListener('window:resize')
