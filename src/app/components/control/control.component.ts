@@ -3,6 +3,7 @@ import { ControlService } from './control.service';
 import { DollService } from '../doll/doll.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
 import { ScoreService } from '../score/score.service';
+import { DISPLAY_COLORS, DISPLAY_HORIZONTAL_DIVISION, DISPLAY_VERTICAL_DIVISION } from './control.config';
 
 declare function require(name: string);
 
@@ -14,13 +15,14 @@ const whatIsLoveBuffer: ArrayBuffer = require('./what-is-love.data');
   styleUrls: ['./control.component.scss'],
 })
 export class ControlComponent implements OnInit {
-  yArray = Array.from(new Array(30), (val, index) => index * 20 + 20);
-  xArray = Array.from(new Array(4), (val, index) => index * 20 + 20);
-
   @ViewChild('display') display: ElementRef<HTMLCanvasElement>;
 
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
+
+  private yArray = Array.from(new Array(DISPLAY_VERTICAL_DIVISION), (val, index) => index * 20 + 20);
+  private xArray = Array.from(new Array(DISPLAY_HORIZONTAL_DIVISION), (val, index) => index * 20 + 20);
+  private akarmi = DISPLAY_VERTICAL_DIVISION - 1;
 
   private subMap: Uint8Array;
 
@@ -92,15 +94,18 @@ export class ControlComponent implements OnInit {
   }
 
   private isHighlighted(x: number, y: number): boolean {
-    return BitValuesUtil.getBit(this.subMap[29 - x], y);
+    return BitValuesUtil.getBit(this.subMap[this.akarmi - x], y);
   }
 
   private draw() {
-    this.ctx.fillStyle = '#FC6E51';
     this.yArray.forEach((y: number, xIndex: number) => {
       this.xArray.forEach((x: number, yIndex: number) => {
-        if (this.isHighlighted(xIndex, yIndex)) this.ctx.fillRect(x, y, 10, 20);
-        else this.ctx.clearRect(x, y, 10, 20);
+        if (this.isHighlighted(xIndex, yIndex)) {
+          this.ctx.fillStyle = DISPLAY_COLORS[yIndex];
+          this.ctx.fillRect(x, y, 10, 20);
+        } else {
+          this.ctx.clearRect(x, y, 10, 20);
+        }
       });
     });
   }
