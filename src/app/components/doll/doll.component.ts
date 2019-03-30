@@ -1,37 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import {PlayerService} from '../../services/player/player.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DollService } from './doll.service';
 
 @Component({
   selector: 'app-doll',
   templateUrl: './doll.component.html',
-  styleUrls: ['./doll.component.scss']
+  styleUrls: ['./doll.component.scss'],
 })
 export class DollComponent implements OnInit {
+  @ViewChild('mouth') mouth: ElementRef<SVGPathElement>;
 
-  songs = [
-    {
-      name: 'Robin Schulz - Sun Goes Down',
-      trackId: '167810531'
-    },
-    {
-      name: 'Lost Frequencies - Are you with me',
-      trackId: '125851434'
-    },
-    {
-      name: 'Random',
-      trackId: '208277289'
-    },
-    {
-      name: 'WhatIsLove',
-      trackId: '86589991'
-    }
-  ];
+  private currentY = 0;
+  private minY = 0;
+  private maxY = 200;
+  private direction = 10;
+  private requestId = null;
 
-  constructor(private player: PlayerService) {
+  constructor(private service: DollService) {
   }
 
   ngOnInit() {
-    this.player.play(this.songs[1].trackId);
+    this.service.mouthDirection.subscribe((direction) => {
+      this.direction = direction;
+      this.stopAnimation();
+      this.animation();
+    });
   }
 
+  private animation = (): void => {
+    this.mouth.nativeElement.setAttribute('d', `M0,0 Q 120,${this.currentY} 200,0Z`);
+    this.currentY += this.direction;
+
+    if (this.currentY < this.minY) {
+      this.currentY = this.minY;
+    } else if (this.currentY > this.maxY) {
+      this.currentY = this.maxY;
+    }
+
+    if (this.currentY === this.minY || this.currentY === this.maxY) {
+      this.stopAnimation();
+    } else {
+      window.requestAnimationFrame(this.animation);
+    }
+  };
+
+  private stopAnimation(): void {
+    if (this.requestId === null) {
+      return;
+    }
+    window.cancelAnimationFrame(this.requestId);
+    this.requestId = null;
+  }
 }
