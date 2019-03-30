@@ -4,15 +4,16 @@
   overflow: hidden;
   display: block;
 }
+
 .layout {
   display: grid;
   grid-template-rows: 50px 1fr 40px;
-  grid-template-columns: 40% 60%;
-  grid-template-areas: 'logo logo'
-                        'guy   controlls'
-                        'footer footer'
-;
+  grid-template-columns: 50% 50%;
+  grid-template-areas:  'logo logo'
+                        'guy controlls'
+                        'footer player';
   height: 100vh;
+
   .logo {
     grid-area: logo;
     padding: 20px;
@@ -23,9 +24,14 @@
     grid-area: guy;
   }
 
+  app-audio {
+    grid-area: player;
+  }
+
   app-control {
     grid-area: controlls;
   }
+
   .footer {
     grid-area: footer;
     color: white;

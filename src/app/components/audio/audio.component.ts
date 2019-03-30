@@ -14,18 +14,18 @@ export class AudioComponent implements OnInit {
       name: 'WhatIsLove',
       trackId: '34743391'
     },
-    {
-      name: 'Robin Schulz - Sun Goes Down',
-      trackId: '167810531'
-    },
-    {
-      name: 'Lost Frequencies - Are you with me',
-      trackId: '125851434'
-    },
-    {
-      name: 'Random',
-      trackId: '208277289'
-    }
+    // {
+    //   name: 'Robin Schulz - Sun Goes Down',
+    //   trackId: '167810531'
+    // },
+    // {
+    //   name: 'Lost Frequencies - Are you with me',
+    //   trackId: '125851434'
+    // },
+    // {
+    //   name: 'Random',
+    //   trackId: '208277289'
+    // }
   ];
 
   constructor(private player: PlayerService) { }
