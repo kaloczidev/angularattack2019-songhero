@@ -4,7 +4,7 @@ import { DollService } from '../doll/doll.service';
 
 declare function require(name: string);
 
-const buffer = require('./what-is-love.data');
+const whatIsLoveBuffer: ArrayBuffer = require('./what-is-love.data');
 
 @Component({
   selector: 'app-control',
@@ -17,7 +17,7 @@ export class ControlComponent {
   constructor(private service: ControlService,
               private dollService: DollService
   ) {
-    console.log(new Uint8Array(buffer));
+    console.log(new Uint8Array(whatIsLoveBuffer));
   }
 
   @HostListener('window:keydown', ['$event'])
