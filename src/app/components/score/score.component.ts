@@ -18,7 +18,6 @@ export class ScoreComponent implements OnInit {
 
   ngOnInit() {
     this.dollService.mouthDirection.pipe(debounceTime(100)).subscribe(trigger => {
-      console.log(trigger);
       this.score++;
       this.changed = true;
       setTimeout(() => {this.changed = false; }, 100);
