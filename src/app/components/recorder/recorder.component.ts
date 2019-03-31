@@ -46,7 +46,7 @@ export class RecorderComponent {
     this.playerService.onPositionChanged.subscribe((trackPosition: TrackPosition) => {
       const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
 
-      if (index === this.previousIndex) {
+      if (index - this.previousIndex < 2) {
         this.recordedData[index] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.arrowLeftPressed, this.keyWPressed]);
       } else {
         for (let i = this.previousIndex; i < index; ++i) {
