@@ -11,6 +11,7 @@ import {ScoreService} from '../score/score.service';
 export class ScoreboardComponent implements OnInit {
   public scores: Array<{ name: string; score: number }> = [];
   @ViewChild('modal') modal: ModalComponent;
+  score = 0;
 
   constructor(private playerService: PlayerService, private scoreService: ScoreService, private cdr: ChangeDetectorRef) {
   }
@@ -18,10 +19,16 @@ export class ScoreboardComponent implements OnInit {
   ngOnInit() {
     this.playerService.status.subscribe((status) => {
       if (status === PlayerStatus.FINISHED) {
+        this.score = this.scoreService.score.getValue();
         this.modal.open();
         this.cdr.detectChanges();
       }
     });
   }
 
+  retry() {
+    this.playerService.play();
+    this.modal.close();
+    this.cdr.detectChanges();
+  }
 }
