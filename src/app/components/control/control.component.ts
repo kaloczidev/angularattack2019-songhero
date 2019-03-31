@@ -145,4 +145,9 @@ export class ControlComponent implements OnInit {
       }
     }
   }
+
+  k(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
 }

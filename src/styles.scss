@@ -5,13 +5,18 @@
 body {
   font-family: 'Righteous', cursive;
   color: $theme-yellow;
-  height: 100vh;
+  height: 100%;
   background-image: url('/assets/background.jpg');
   background-origin: border-box;
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: top left;
-  animation: background 25s linear infinite;
+  animation: background-anim 25s linear infinite;
+}
 
+html {
+  position: fixed;
+  display: block;
 }
 
 a {
@@ -21,7 +26,7 @@ a {
   }
 }
 
-@keyframes background {
+@keyframes background-anim {
   from, to { background-position:0 0; }
   50% { background-position:10% 0; }
 }
