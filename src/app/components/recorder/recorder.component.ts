@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
-import { Component, HostListener } from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import { DollService } from '../doll/doll.service';
 import { PlayerService, PlayerStatus, TrackPosition } from '../player/player.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
@@ -19,9 +19,10 @@ import { BitValuesUtil } from '../../utils/bitValues.util';
       padding: 10px;
     }
   `],
-  template: 'RECORDER: Don\'t forget to remove!!!!',
+  template: 'RECORDER: Don\'t forget to remove!!!! <input type="checkbox" checked="checked" #dwr> Download Record<br>',
 })
 export class RecorderComponent {
+  @ViewChild('dwr') dwr: ElementRef;
   private previousIndex = 0;
 
   private spacePressed = 0;
@@ -61,7 +62,7 @@ export class RecorderComponent {
       if (status === PlayerStatus.PLAY) {
         this.previousIndex = 0;
         this.recordedData.fill(0);
-      } else if (status === PlayerStatus.FINISHED) {
+      } else if (status === PlayerStatus.FINISHED && this.dwr.nativeElement.checked) {
         const blob = new Blob([this.recordedData.buffer], {type: 'application/octet-stream'});
         const a = document.createElement('a');
         const url = window.URL.createObjectURL(blob);
