@@ -1,16 +1,28 @@
 .doll-container {
-  padding: 20px;
-  padding-top: 80px;
-  padding-left: 120px;
+  height: 800px;
 }
 
 .doll-right-arm {
-  transform-origin: 293px 443px;
+  transform-origin: 875px 750px;
   animation: doll-hand 6s linear infinite;
 }
 
 .doll-face {
   transform-origin: 115px 326px;
+}
+
+.light-container {
+  animation: swing 16s linear infinite;
+  transform-origin: 850px 110px;
+}
+
+@keyframes swing {
+  from, to {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
 }
 
 @keyframes doll-hand {

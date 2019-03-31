@@ -11,7 +11,6 @@ import { PlayerService } from './components/player/player.service';
 import { RecorderComponent } from './components/recorder/recorder.component';
 import { ScoreComponent } from './components/score/score.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { BackgroundComponent } from './components/background/background.component';
 import { StartupComponent } from './components/startup/startup.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { AppService } from './services/app.service';
@@ -26,7 +25,6 @@ import { AppService } from './services/app.service';
     RecorderComponent,
     ScoreComponent,
     ModalComponent,
-    BackgroundComponent,
     StartupComponent,
     ScoreboardComponent,
   ],
