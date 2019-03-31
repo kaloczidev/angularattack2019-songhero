@@ -31,7 +31,6 @@ export class ControlComponent implements OnInit {
 
   private spacePressed = false;
   private arrowRightPressed = false;
-  private arrowLeftPressed = false;
   private keyWPressed = false;
 
   constructor(private service: ControlService,
@@ -57,8 +56,7 @@ export class ControlComponent implements OnInit {
 
       this.setScore(this.spacePressed, 0);
       this.setScore(this.arrowRightPressed, 1);
-      this.setScore(this.arrowLeftPressed, 2);
-      this.setScore(this.keyWPressed, 3);
+      this.setScore(this.keyWPressed, 2);
     });
   }
 
@@ -73,10 +71,6 @@ export class ControlComponent implements OnInit {
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = true;
       this.dollService.bolintRight();
-      usePreventDefault = true;
-    } else if (event.code === 'ArrowLeft') {
-      this.arrowLeftPressed = true;
-      this.dollService.bolintLeft();
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = true;
@@ -97,9 +91,6 @@ export class ControlComponent implements OnInit {
       usePreventDefault = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = false;
-      usePreventDefault = true;
-    } else if (event.code === 'ArrowLeft') {
-      this.arrowLeftPressed = false;
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = false;

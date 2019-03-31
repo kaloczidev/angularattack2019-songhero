@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
-import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { DollService } from '../doll/doll.service';
 import { PlayerService, PlayerStatus, TrackPosition } from '../player/player.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
@@ -27,7 +27,6 @@ export class RecorderComponent {
 
   private spacePressed = 0;
   private arrowRightPressed = 0;
-  private arrowLeftPressed = 0;
   private keyWPressed = 0;
 
   private recordedDataByteLength = 14500; // TODO: sound duration * ????
@@ -48,10 +47,10 @@ export class RecorderComponent {
       const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
 
       if (index - this.previousIndex < 2) {
-        this.recordedData[index] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.arrowLeftPressed, this.keyWPressed]);
+        this.recordedData[index] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.keyWPressed]);
       } else {
         for (let i = this.previousIndex; i < index; ++i) {
-          this.recordedData[i] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.arrowLeftPressed, this.keyWPressed]);
+          this.recordedData[i] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.keyWPressed]);
         }
       }
 
@@ -86,10 +85,6 @@ export class RecorderComponent {
       this.arrowRightPressed = 1;
       this.dollService.bolintRight();
       usePreventDefault = true;
-    } else if (event.code === 'ArrowLeft') {
-      this.arrowLeftPressed = 1;
-      this.dollService.bolintLeft();
-      usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = 1;
       this.dollService.doWink();
@@ -109,9 +104,6 @@ export class RecorderComponent {
       usePreventDefault = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = 0;
-      usePreventDefault = true;
-    } else if (event.code === 'ArrowLeft') {
-      this.arrowLeftPressed = 0;
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = 0;

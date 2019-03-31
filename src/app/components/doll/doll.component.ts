@@ -1,5 +1,5 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DollService} from './doll.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DollService } from './doll.service';
 
 @Component({
   selector: 'app-doll',
@@ -36,7 +36,7 @@ export class DollComponent implements OnInit {
       this.doBolint();
       this.bolint(deg);
     });
-    this.service.wink.subscribe( (a) => {
+    this.service.wink.subscribe((a) => {
       this.doKacsint();
     });
   }
@@ -57,7 +57,7 @@ export class DollComponent implements OnInit {
       this.currentY = this.maxY;
     }
 
-    const quadraticShift = 383 ;
+    const quadraticShift = 383;
     this.mouth.nativeElement.setAttribute('d', `M178,314 Q242,${quadraticShift + this.currentY} 300,328Z`);
 
     if (this.currentY === this.minY || this.currentY === this.maxY) {
