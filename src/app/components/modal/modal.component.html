@@ -1,7 +1,7 @@
 <div class="container" #modal (transitionend)="transitionend($event)" [ngClass]="{
   close: closed,
   hidden: hiddenHost
-}" (click)="close()">
+}">
   <div class="modal" (click)="stopProp($event)">
     <ng-content></ng-content>
   </div>

@@ -14,6 +14,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { StartupComponent } from './components/startup/startup.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { AppService } from './services/app.service';
+import { CountdownComponent } from './components/countdown/countdown.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AppService } from './services/app.service';
     ModalComponent,
     StartupComponent,
     ScoreboardComponent,
+    CountdownComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export enum PlayerStatus {
 })
 export class PlayerService {
   status = new BehaviorSubject<PlayerStatus>(PlayerStatus.IDLE);
-  urlChange = new BehaviorSubject<string>('');
+  urlChange = new BehaviorSubject<string>('34743391');
   onPositionChanged = new Subject<TrackPosition>();
   seek = new Subject<number>();
   loading = new BehaviorSubject<boolean>(false);
