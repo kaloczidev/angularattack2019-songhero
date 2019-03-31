@@ -8,16 +8,17 @@
   height: 100vh;
   width: 100vw;
 
-  .logo {
+  .logo-container {
     position: fixed;
-    width: 50%;
     top: 0;
     left: 0;
-
     padding: 20px;
-    transform: rotate(-15deg);
-    animation: app-logo-animation 10s ease forwards infinite;
-    transform-origin: center bottom;
+
+    .logo {
+      transform: rotate(-15deg);
+      animation: app-logo-animation 10s ease forwards infinite;
+      transform-origin: center bottom;
+    }
   }
 
   .footer {
