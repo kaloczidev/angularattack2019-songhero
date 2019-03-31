@@ -13,6 +13,7 @@ declare var SC: any;
 })
 export class PlayerComponent implements OnInit {
   @ViewChild('audio') audio: ElementRef;
+  @ViewChild('blur') blur: ElementRef<HTMLInputElement>;
 
   BASE_URL = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
   url: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
@@ -25,6 +26,7 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     this.player.status.subscribe((status) => {
+      this.blur.nativeElement.focus();
       this.status = status;
       switch (status) {
         case PlayerStatus.PLAY: this.play(); break;
