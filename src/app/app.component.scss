@@ -18,6 +18,8 @@
     grid-area: logo;
     padding: 20px;
     transform: rotate(-15deg);
+    animation: app-logo-animation 10s ease forwards infinite;
+    transform-origin: center bottom;
   }
 
   app-doll {
@@ -39,4 +41,14 @@
     text-align: center;
     padding: 10px;
   }
+}
+@keyframes app-logo-animation {
+  from, to, 8% {
+    transform: rotate(0deg);
+  }
+  10% {transform: rotate(10deg);}
+  12% {transform: rotate(-10deg);}
+  14% {transform: rotate(5deg);}
+  18% {transform: rotate(-5deg);}
+  22% {transform: rotate(-2deg);}
 }
