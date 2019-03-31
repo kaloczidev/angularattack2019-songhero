@@ -51,8 +51,7 @@ export class AudioComponent implements OnInit {
     });
   }
 
-  play(track: Track) {
-    this.player.setTrack(track);
+  play() {
     this.player.play();
   }
 

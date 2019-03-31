@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {AppService} from '../../services/app.service';
+import {PlayerService} from '../player/player.service';
 
 @Component({
   selector: 'app-startup',
@@ -13,7 +14,7 @@ export class StartupComponent implements OnInit {
   tour: Array<string> = ['1', '2', '3', '4'];
   tourActual = 0;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private player: PlayerService) {
   }
 
   ngOnInit() {
@@ -26,6 +27,7 @@ export class StartupComponent implements OnInit {
     this.appService.showStartUp.next(!showDialogAgain);
     localStorage.setItem('startUp', JSON.stringify(!showDialogAgain));
     this.modal.close();
+    this.player.play();
   }
 
   next() {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {PlayerService, PlayerStatus, TrackPosition} from './player.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import * as MobileDetect from 'mobile-detect';
@@ -17,13 +17,15 @@ export class PlayerComponent implements OnInit {
   url: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
   md = new MobileDetect(window.navigator.userAgent);
   iframeHide = true;
-  accessed = false;
+  isMobile = this.md.mobile() || this.md.tablet() || this.md.phone();
+  status = PlayerStatus.IDLE;
 
   constructor(private player: PlayerService, private sanitizer: DomSanitizer, private zone: NgZone) {
   }
 
   ngOnInit() {
     this.player.status.subscribe((status) => {
+      this.status = status;
       switch (status) {
         case PlayerStatus.PLAY: this.play(); break;
         case PlayerStatus.PAUSE: this.pause(); break;
@@ -48,8 +50,8 @@ export class PlayerComponent implements OnInit {
   }
 
   play() {
-    this.pause();
-    this.accessed = false;
+    this.setVolume(100);
+    if (this.player.status.getValue() === PlayerStatus.PLAY) this.player.seekTo(0);
     SC.Widget(this.audio.nativeElement).play();
   }
 
@@ -57,27 +59,13 @@ export class PlayerComponent implements OnInit {
     SC.Widget(this.audio.nativeElement).pause();
   }
 
-  getDuration() {
-    SC.Widget(this.audio.nativeElement).getDuration((value: number) => {
-
-    });
+  setVolume(volume: number) {
+    SC.Widget(this.audio.nativeElement).setVolume(volume);
   }
 
   onload() {
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY_PROGRESS);
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.FINISH);
-    SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY);
-
-    SC.Widget(this.audio.nativeElement)
-      .bind(SC.Widget.Events.PLAY, (event: TrackPosition) => this.zone.run(() => {
-        if (this.accessed && !this.iframeHide) {
-          this.iframeHide = true;
-        }
-        if (this.md.mobile() || this.md.tablet() || this.md.phone()) {
-          this.iframeHide = false;
-          this.accessed = true;
-        }
-    }));
 
     SC.Widget(this.audio.nativeElement)
       .bind(SC.Widget.Events.FINISH, (event: TrackPosition) => this.zone.run(() => {
@@ -85,9 +73,10 @@ export class PlayerComponent implements OnInit {
     }));
     SC.Widget(this.audio.nativeElement)
       .bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => this.zone.run(() => {
-        this.player.onPositionChanged.next(event);
+        if (this.status === PlayerStatus.PLAY) this.player.onPositionChanged.next(event);
     }));
 
-    if (this.player.status.getValue() === PlayerStatus.PLAY) { this.play(); }
+    this.setVolume(0);
+    SC.Widget(this.audio.nativeElement).play();
   }
 }
