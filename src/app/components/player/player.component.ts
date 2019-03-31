@@ -46,8 +46,15 @@ export class PlayerComponent implements OnInit {
     this.accessed = false;
     SC.Widget(this.audio.nativeElement).play();
   }
+
   pause() {
     SC.Widget(this.audio.nativeElement).pause();
+  }
+
+  getDuration() {
+    SC.Widget(this.audio.nativeElement).getDuration((value: number) => {
+
+    });
   }
 
   onload() {

@@ -1,6 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PlayerService} from '../player/player.service';
 
+export interface Track {
+  name: string;
+  trackId: string;
+  duration: string;
+}
+
 @Component({
   selector: 'app-audio',
   templateUrl: './audio.component.html',
@@ -9,29 +15,33 @@ import {PlayerService} from '../player/player.service';
 export class AudioComponent implements OnInit {
   @ViewChild('time') time: ElementRef;
 
-  songs = [
+  songs: Array<Track> = [
     {
       name: 'WhatIsLove',
-      trackId: '34743391'
+      trackId: '34743391',
+      duration: '254660'
     },
     // {
     //   name: 'Robin Schulz - Sun Goes Down',
-    //   trackId: '167810531'
+    //   trackId: '167810531',
+    //   duration: '176211'
     // },
     // {
     //   name: 'Lost Frequencies - Are you with me',
-    //   trackId: '125851434'
+    //   trackId: '125851434',
+    //   duration: '152360'
     // },
     // {
     //   name: 'Random',
-    //   trackId: '208277289'
+    //   trackId: '208277289',
+    //   duration: '198260'
     // }
   ];
 
   constructor(private player: PlayerService) { }
 
   ngOnInit() {
-    this.player.setUrl(this.songs[0].trackId);
+    this.player.setTrack(this.songs[0]);
     this.player.onPositionChanged.subscribe((actual) => {
       const current = actual.currentPosition / 1000 | 0;
       const minute = current / 60 | 0;
@@ -41,8 +51,8 @@ export class AudioComponent implements OnInit {
     });
   }
 
-  play(id: string) {
-    this.player.setUrl(id);
+  play(track: Track) {
+    this.player.setTrack(track);
     this.player.play();
   }
 

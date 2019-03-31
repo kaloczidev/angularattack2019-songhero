@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
+import {Track} from '../audio/audio.component';
 
 export interface TrackPosition {
   currentPosition: number;
@@ -22,6 +23,7 @@ export class PlayerService {
   status = new BehaviorSubject<PlayerStatus>(PlayerStatus.IDLE);
   urlChange = new BehaviorSubject<string>('');
   onPositionChanged = new Subject<TrackPosition>();
+  track: Track;
 
   constructor() {
   }
@@ -34,7 +36,12 @@ export class PlayerService {
     this.status.next(PlayerStatus.PAUSE);
   }
 
-  setUrl(url: string) {
-    this.urlChange.next(url);
+  getDuration() {
+    return this.track.duration;
+  }
+
+  setTrack(track: Track) {
+    this.track = track;
+    this.urlChange.next(track.trackId);
   }
 }
