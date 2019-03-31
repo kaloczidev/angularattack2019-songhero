@@ -17,8 +17,8 @@ export class DollComponent implements OnInit {
   private mouthFrameRequestId = null;
   private headFrameRequestId = null;
 
-  private headRotation = 8;
-  private headMaxRotationDeg = 8;
+  private headRotation = 16;
+  private headMaxRotationDeg = 16;
 
   constructor(private service: DollService) {
   }
@@ -31,7 +31,7 @@ export class DollComponent implements OnInit {
     });
     this.service.shake.subscribe(() => {
       this.stopShakeAnimation();
-      this.headRotation = 8;
+      this.headRotation = 16;
       this.doShake();
     });
     this.service.wink.subscribe(() => {
