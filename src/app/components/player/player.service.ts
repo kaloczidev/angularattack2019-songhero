@@ -26,6 +26,7 @@ export class PlayerService {
   onPositionChanged = new Subject<TrackPosition>();
   seek = new Subject<number>();
   loading = new BehaviorSubject<boolean>(false);
+  gamestart = new Subject();
   track: Track;
 
   constructor(private score: ScoreService) {

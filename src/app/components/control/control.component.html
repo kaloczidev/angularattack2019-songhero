@@ -1,6 +1,7 @@
 <canvas class="display" #display></canvas>
 <div class="keys">
   <button class="key w-key"
+          tabindex="2"
           [ngClass]="{keydown: wPressed, active: wIsActive}"
           (mousedown)="keyWDown($event)"
           (mouseup)="keyWUp($event)">
@@ -8,6 +9,7 @@
   </button>
 
   <button class="key space"
+          tabindex="2"
           [ngClass]="{keydown: spacePressed, active: spaceIsActive}"
           (mousedown)="spaceDown($event)"
           (mouseup)="spaceUp($event)">
@@ -15,6 +17,7 @@
   </button>
 
   <button class="key e-key"
+          tabindex="3"
           [ngClass]="{keydown: ePressed, active: eIsActive}"
           (mousedown)="keyEDown($event)"
           (mouseup)="keyEUp($event)">

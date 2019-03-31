@@ -23,7 +23,7 @@ export class StartupComponent implements OnInit {
 
   onStart() {
     this.modal.close();
-    this.player.play();
+    this.player.gamestart.next();
   }
 
   next() {
