@@ -18,14 +18,10 @@ export class StartupComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.appService.showStartUp.getValue()) {
-      this.modal.open();
-    }
+    this.modal.open();
   }
 
-  onStart(showDialogAgain: boolean) {
-    this.appService.showStartUp.next(!showDialogAgain);
-    localStorage.setItem('startUp', JSON.stringify(!showDialogAgain));
+  onStart() {
     this.modal.close();
     this.player.play();
   }

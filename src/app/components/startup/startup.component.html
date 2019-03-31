@@ -3,7 +3,7 @@
     <div class="title">
       Welcome to Roxbury!
     </div>
-    <button class="button link" (click)="onStart(showAgain.checked)">Skip tour</button>
+    <span class="button primary" (click)="onStart(showAgain.checked)">Play now</span>
   </div>
   <div class="slideshow">
     <div class="slide">
@@ -12,12 +12,6 @@
   </div>
   <div class="navigation">
     <div>
-      <input id="show-again" name="show-again" #showAgain type="checkbox">
-      <label for="show-again" class="button" >
-      <img src="/assets/icons/{{showAgain.checked ? 'check' : 'checknot' }}.svg" width="16px" height="16px" viewport="0 0 64 64" alt="">
-        Never show again
-      </label>
-
     </div>
     <div class="slideshow-navigation" *ngIf="tourActual !== 3">
       <span *ngIf="tourActual !== 0" (click)="prev()"class="button">< prev</span>
@@ -27,7 +21,6 @@
 
     <div class="slideshow-navigation" *ngIf="tourActual === 3">
       <span *ngIf="tourActual !== 0" (click)="tourActual = 0" class="button link"> start over </span>
-
       <span (click)="onStart(showAgain.checked)" class="button primary">Let's start!</span>
     </div>
   </div>
