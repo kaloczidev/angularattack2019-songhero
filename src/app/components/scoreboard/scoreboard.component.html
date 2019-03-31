@@ -1,16 +1,23 @@
 <app-modal #modal>
-  <h1>Your score</h1>
-  <div>{{score}}</div>
+  <h1>Your score: <span>{{score}}</span></h1>
+
+  <br>
   <h2 class="score-header">Best scores:</h2>
   <ul>
-    <li *ngFor="let score of scores"></li>
+    <li *ngFor="let score of scores">
+      {{score.name}} : {{score.score}}
+    </li>
   </ul>
-  <form>
+  <br>
+  <form *ngIf="!submitted" (submit)="onSubmit($event)">
     <label>
-      <input type="text" class="input-name" placeholder="Your name" autoFocus="true"/>
-      <!--<button [disabled]="username.length === 0" type="submit">Make history</button>-->
+      <input type="text" (input)="onNameChange($event)" class="input-name" placeholder="Your name" autoFocus="true"/>
+      <div class="button-wrapper">
+        <button class="button" [disabled]="username.length === 0" type="submit">Submit score</button>
+      </div>
     </label>
   </form>
+  <div *ngIf="submitted">Thank you.</div>
   <div class="button-wrapper">
     <button type="button" class="button" (click)="retry()">Retry</button>
   </div>
