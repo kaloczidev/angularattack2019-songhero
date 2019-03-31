@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { AudioComponent } from './components/audio/audio.component';
 import { ControlComponent } from './components/control/control.component';
 import { DollComponent } from './components/doll/doll.component';
-import { HttpClientModule } from '@angular/common/http';
 import { PlayerComponent } from './components/player/player.component';
 import { PlayerService } from './components/player/player.service';
 import { RecorderComponent } from './components/recorder/recorder.component';
@@ -31,8 +30,7 @@ import { CountdownComponent } from './components/countdown/countdown.component';
     CountdownComponent,
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule
+    BrowserModule
   ],
   providers: [AppService, PlayerService],
   bootstrap: [AppComponent]
