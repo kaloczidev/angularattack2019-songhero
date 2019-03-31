@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CountdownComponent implements OnInit {
 
+  animON = true;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  end(event) {
+    this.animON = false;
+    console.log('jej');
+    this.animON = true;
+  }
 }

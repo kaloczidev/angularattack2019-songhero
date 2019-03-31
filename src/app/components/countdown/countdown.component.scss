@@ -3,4 +3,20 @@
   width: 100%;
   height: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.number {
+  animation-name: number-small;
+  animation-duration: 2s;
+}
+
+@keyframes number-small {
+  from {transform: scale(10)}
+  to {transform: scale(2)}
 }

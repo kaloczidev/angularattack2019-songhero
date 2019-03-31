@@ -2,6 +2,7 @@ import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {PlayerService, PlayerStatus, TrackPosition} from './player.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import * as MobileDetect from 'mobile-detect';
+import {debounceTime} from 'rxjs/operators';
 
 declare var SC: any;
 
@@ -23,7 +24,7 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.player.status.subscribe((status) => {
+    this.player.status.pipe(debounceTime(300)).subscribe((status) => {
       this.status = status;
       switch (status) {
         case PlayerStatus.PLAY: this.play(); break;
