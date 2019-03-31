@@ -3,7 +3,7 @@
     <div class="title">
       Welcome to Roxbury!
     </div>
-    <span class="button primary" (click)="onStart(showAgain.checked)">Play now</span>
+    <span class="button primary" (click)="onStart()">Play now</span>
   </div>
   <div class="slideshow">
     <div class="slide">
@@ -21,7 +21,7 @@
 
     <div class="slideshow-navigation" *ngIf="tourActual === 3">
       <span *ngIf="tourActual !== 0" (click)="tourActual = 0" class="button link"> start over </span>
-      <span (click)="onStart(showAgain.checked)" class="button primary">Let's start!</span>
+      <span (click)="onStart()" class="button primary">Let's start!</span>
     </div>
   </div>
 </app-modal>
