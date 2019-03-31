@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import {PlayerService, PlayerStatus, TrackPosition} from './player.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import * as MobileDetect from 'mobile-detect';
@@ -19,7 +19,7 @@ export class PlayerComponent implements OnInit {
   iframeHide = true;
   accessed = false;
 
-  constructor(private player: PlayerService, private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef) {
+  constructor(private player: PlayerService, private sanitizer: DomSanitizer, private zone: NgZone) {
   }
 
   ngOnInit() {
@@ -68,23 +68,25 @@ export class PlayerComponent implements OnInit {
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.FINISH);
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY);
 
-    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY, (event: TrackPosition) => {
-      if (this.accessed && !this.iframeHide) {
-        this.iframeHide = true;
-        this.cdr.detectChanges();
-      }
-      if (this.md.mobile() || this.md.tablet() || this.md.phone()) {
-        this.iframeHide = false;
-        this.accessed = true;
-      }
-    });
+    SC.Widget(this.audio.nativeElement)
+      .bind(SC.Widget.Events.PLAY, (event: TrackPosition) => this.zone.run(() => {
+        if (this.accessed && !this.iframeHide) {
+          this.iframeHide = true;
+        }
+        if (this.md.mobile() || this.md.tablet() || this.md.phone()) {
+          this.iframeHide = false;
+          this.accessed = true;
+        }
+    }));
 
-    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.FINISH, (event: TrackPosition) => {
-      this.player.status.next(PlayerStatus.FINISHED);
-    });
-    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => {
-      this.player.onPositionChanged.next(event);
-    });
+    SC.Widget(this.audio.nativeElement)
+      .bind(SC.Widget.Events.FINISH, (event: TrackPosition) => this.zone.run(() => {
+        this.player.status.next(PlayerStatus.FINISHED);
+    }));
+    SC.Widget(this.audio.nativeElement)
+      .bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => this.zone.run(() => {
+        this.player.onPositionChanged.next(event);
+    }));
 
     if (this.player.status.getValue() === PlayerStatus.PLAY) { this.play(); }
   }

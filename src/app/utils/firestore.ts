@@ -5,7 +5,7 @@ export interface ScoreResult {
   score: number;
 }
 
-firebase.firestore().settings({timestampsInSnapshots: true});
+firebase.firestore().settings({});
 const db = firebase.firestore().collection('leaderboard');
 
 export const save = (name, score) => {

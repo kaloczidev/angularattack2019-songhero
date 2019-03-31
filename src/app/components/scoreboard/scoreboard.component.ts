@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {PlayerService, PlayerStatus} from '../player/player.service';
 import {ScoreService} from '../score/score.service';
@@ -16,12 +16,11 @@ export class ScoreboardComponent implements OnInit {
   public submitted = false;
   @ViewChild('modal') public modal: ModalComponent;
 
-  constructor(private playerService: PlayerService, private scoreService: ScoreService, private cdr: ChangeDetectorRef) {
+  constructor(private playerService: PlayerService, private scoreService: ScoreService) {
   }
 
   ngOnInit() {
     this.playerService.status.subscribe((status) => {
-      console.log(status);
       if (status === PlayerStatus.FINISHED) this.finish();
     });
   }
@@ -31,7 +30,6 @@ export class ScoreboardComponent implements OnInit {
       this.scores = scores;
       this.score = this.scoreService.score.getValue();
       this.modal.open();
-      this.cdr.detectChanges();
     });
   }
 
@@ -39,7 +37,6 @@ export class ScoreboardComponent implements OnInit {
     this.playerService.play();
     this.modal.close();
     this.submitted = false;
-    this.cdr.detectChanges();
   }
 
   onNameChange(event) {

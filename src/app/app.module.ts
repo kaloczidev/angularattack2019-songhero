@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { AudioComponent } from './components/audio/audio.component';
 import { ControlComponent } from './components/control/control.component';
 import { DollComponent } from './components/doll/doll.component';
@@ -33,7 +32,6 @@ import { AppService } from './services/app.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule
   ],
   providers: [AppService, PlayerService],
