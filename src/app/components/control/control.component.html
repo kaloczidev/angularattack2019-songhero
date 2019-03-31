@@ -1,7 +1,24 @@
 <canvas class="display" #display></canvas>
-<div (click)="k($event)">
-  <button class="key">W</button>
-  <button class="key keydown space">space</button>
-  <button class="key">E</button>
+<div>
+  <button class="key"
+          [ngClass]="{keydown: wPressed}"
+          (mousedown)="keyWDown($event)"
+          (mouseup)="keyWUp($event)">
+    W
+  </button>
+
+  <button class="key space"
+          [ngClass]="{keydown: spacePressed}"
+          (mousedown)="spaceDown($event)"
+          (mouseup)="spaceUp($event)">
+    space
+  </button>
+
+  <button class="key"
+          [ngClass]="{keydown: ePressed}"
+          (mousedown)="keyEDown($event)"
+          (mouseup)="keyEUp($event)">
+    E
+  </button>
 </div>
 

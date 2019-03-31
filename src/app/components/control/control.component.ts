@@ -23,6 +23,10 @@ const whatIsLoveBuffer: ArrayBuffer = require('./what-is-love.data');
 export class ControlComponent implements OnInit {
   @ViewChild('display') display: ElementRef<HTMLCanvasElement>;
 
+  spacePressed = false;
+  wPressed = false;
+  ePressed = false;
+
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
@@ -32,10 +36,6 @@ export class ControlComponent implements OnInit {
   private akarmi = DISPLAY_VERTICAL_DIVISION - 1;
 
   private subMap: Uint8Array;
-
-  private spacePressed = false;
-  private wPressed = false;
-  private ePressed = false;
 
   constructor(private service: ControlService,
               private dollService: DollService,
@@ -65,48 +65,56 @@ export class ControlComponent implements OnInit {
   }
 
   @HostListener('window:keydown', ['$event'])
-  keyDown(event: KeyboardEvent) {
-    let usePreventDefault = false;
-
-    if (event.code === 'Space') {
-      this.spacePressed = true;
-      this.dollService.openMouth();
-      usePreventDefault = true;
-    } else if (event.code === 'KeyE') {
-      this.ePressed = true;
-      this.dollService.shakeHead();
-      usePreventDefault = true;
-    } else if (event.code === 'KeyW') {
-      this.wPressed = true;
-      this.dollService.doWink();
-      usePreventDefault = true;
-    }
-
-    if (usePreventDefault) event.preventDefault();
+  keyDown(event: KeyboardEvent): void {
+    if (event.code === 'Space') return this.spaceDown(event);
+    if (event.code === 'KeyE') return this.keyEDown(event);
+    if (event.code === 'KeyW') return this.keyWDown(event);
   }
 
   @HostListener('window:keyup', ['$event'])
-  keyUp(event: KeyboardEvent) {
-    let usePreventDefault = false;
-
-    if (event.code === 'Space') {
-      this.spacePressed = false;
-      this.dollService.closeMouth();
-      usePreventDefault = true;
-    } else if (event.code === 'KeyE') {
-      this.ePressed = false;
-      usePreventDefault = true;
-    } else if (event.code === 'KeyW') {
-      this.wPressed = false;
-      usePreventDefault = true;
-    }
-
-    if (usePreventDefault) event.preventDefault();
+  keyUp(event: KeyboardEvent): void {
+    if (event.code === 'Space') return this.spaceUp(event);
+    if (event.code === 'KeyE') return this.keyEUp(event);
+    if (event.code === 'KeyW') return this.keyWUp(event);
   }
 
   @HostListener('window:resize')
   onResize() {
     this.calculateCanvasSize();
+  }
+
+  spaceDown(event): void {
+    this.spacePressed = true;
+    this.dollService.openMouth();
+    this.stopEvent(event);
+  }
+
+  keyEDown(event): void {
+    this.ePressed = true;
+    this.dollService.shakeHead();
+    this.stopEvent(event);
+  }
+
+  keyWDown(event): void {
+    this.wPressed = true;
+    this.dollService.doWink();
+    this.stopEvent(event);
+  }
+
+  spaceUp(event): void {
+    this.spacePressed = false;
+    this.dollService.closeMouth();
+    this.stopEvent(event);
+  }
+
+  keyEUp(event): void {
+    this.ePressed = false;
+    this.stopEvent(event);
+  }
+
+  keyWUp(event): void {
+    this.wPressed = false;
+    this.stopEvent(event);
   }
 
   private calculateCanvasSize() {
@@ -146,7 +154,7 @@ export class ControlComponent implements OnInit {
     }
   }
 
-  k(event: MouseEvent) {
+  private stopEvent(event): void {
     event.stopPropagation();
     event.preventDefault();
   }
