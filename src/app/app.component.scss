@@ -9,9 +9,7 @@
   display: grid;
   grid-template-rows: 50px 1fr 40px;
   grid-template-columns: 50% 50%;
-  grid-template-areas:  'logo logo'
-                        'guy controlls'
-                        'footer player';
+  grid-template-areas: 'logo logo' 'zzzz' 'footer player';
   height: 100vh;
   width: 100vw;
 
@@ -27,10 +25,6 @@
     grid-area: player;
   }
 
-  app-control {
-    grid-area: controlls;
-  }
-
   .footer {
     grid-area: footer;
     color: white;
@@ -39,13 +33,24 @@
     padding: 10px;
   }
 }
+
 @keyframes app-logo-animation {
   from, to, 8% {
     transform: rotate(0deg);
   }
-  10% {transform: rotate(10deg);}
-  12% {transform: rotate(-10deg);}
-  14% {transform: rotate(5deg);}
-  18% {transform: rotate(-5deg);}
-  22% {transform: rotate(-2deg);}
+  10% {
+    transform: rotate(10deg);
+  }
+  12% {
+    transform: rotate(-10deg);
+  }
+  14% {
+    transform: rotate(5deg);
+  }
+  18% {
+    transform: rotate(-5deg);
+  }
+  22% {
+    transform: rotate(-2deg);
+  }
 }
