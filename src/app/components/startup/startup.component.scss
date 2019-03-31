@@ -1,9 +1,7 @@
-$color-modal: #424242;
 .icon-wrapper {
   display: flex;
   justify-content: space-between;
   .title {
-    color: $color-modal;
     font-size: 32px;
   }
   .icon {
@@ -17,7 +15,6 @@ $color-modal: #424242;
 
 .type-header {
   margin-top: 40px;
-  color: $color-modal;
 }
 
 .types {

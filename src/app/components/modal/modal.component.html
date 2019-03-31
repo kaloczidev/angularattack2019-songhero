@@ -1,6 +1,6 @@
 <div class="container" #modal (transitionend)="transitionend()" [ngClass]="{
   close: closed,
-  hidden: hidden
+  hidden: hiddenHost
 }" (click)="close()">
   <div class="modal" (click)="stopProp($event)">
     <ng-content></ng-content>

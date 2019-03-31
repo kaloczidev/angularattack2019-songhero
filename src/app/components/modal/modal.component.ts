@@ -7,7 +7,6 @@ import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/co
 })
 export class ModalComponent implements OnInit {
   @ViewChild('modal') modal: ElementRef;
-  hidden = true;
   closed = false;
   @HostBinding('class.hidden') hiddenHost = true;
 
@@ -22,11 +21,10 @@ export class ModalComponent implements OnInit {
 
   open() {
     this.hiddenHost = false;
-    this.hidden = false;
+    this.closed = false;
   }
 
   transitionend() {
-    this.hidden = true;
     this.hiddenHost = true;
   }
 

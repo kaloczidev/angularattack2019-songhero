@@ -17,6 +17,7 @@ export class ScoreboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.modal.open();
     this.playerService.status.subscribe((status) => {
       if (status === PlayerStatus.FINISHED) {
         this.score = this.scoreService.score.getValue();

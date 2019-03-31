@@ -21,7 +21,7 @@
 }
 
 .container {
-  color: #424242;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,11 +42,9 @@
   }
 
   .modal {
-    font-family: "Courier New";
     display: flex;
     flex-direction: column;
-    width: 50%;
-    background-color: white;
+    background-color: #7e57c2;
     border-radius: 4px;
     padding: 20px;
     animation-name: modal;

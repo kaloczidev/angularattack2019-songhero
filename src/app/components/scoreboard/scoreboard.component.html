@@ -1,14 +1,17 @@
 <app-modal #modal>
-  <h1>Your score: {{score}}</h1>
+  <h1>Your score</h1>
+  <div>{{score}}</div>
   <h2 class="score-header">Best scores:</h2>
   <ul>
     <li *ngFor="let score of scores"></li>
   </ul>
   <form>
     <label>
-      <input type="text" placeholder="Your name" autoFocus="true"/>
+      <input type="text" class="input-name" placeholder="Your name" autoFocus="true"/>
       <!--<button [disabled]="username.length === 0" type="submit">Make history</button>-->
     </label>
   </form>
-  <button type="button" (click)="retry()">Retry</button>
+  <div class="button-wrapper">
+    <button type="button" class="button" (click)="retry()">Retry</button>
+  </div>
 </app-modal>

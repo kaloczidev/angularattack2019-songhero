@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {PlayerService} from '../player/player.service';
+import {PlayerService, PlayerStatus} from '../player/player.service';
 
 export interface Track {
   name: string;
@@ -62,5 +62,9 @@ export class AudioComponent implements OnInit {
 
   seek() {
     this.player.seek.next(this.player.track.duration - 3000);
+  }
+
+  finish() {
+    this.player.status.next(PlayerStatus.FINISHED);
   }
 }
