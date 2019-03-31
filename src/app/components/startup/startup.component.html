@@ -7,7 +7,7 @@
   </div>
   <div class="slideshow">
     <div class="slide">
-      {{tour[tourActual]}}
+      <img src="/assets/step{{tour[tourActual]}}.png" width="400" height="250">
     </div>
   </div>
   <div class="navigation">
@@ -15,8 +15,16 @@
       <input id="show-again" name="show-again" #showAgain type="checkbox">
       <label for="show-again">Do not show this dialog again.</label>
     </div>
-    <div class="slideshow-navigation">
-      <span *ngIf="tourActual !== 0" (click)="prev()">< prev</span> {{tourActual+1}}/{{tour.length}} <span (click)="next()">next ></span>
+    <div class="slideshow-navigation" *ngIf="tourActual !== 3">
+      <span *ngIf="tourActual !== 0" (click)="prev()">< prev</span>
+      {{tourActual + 1}}/{{tour.length}}
+      <span (click)="next()">next ></span>
+    </div>
+
+    <div class="slideshow-navigation" *ngIf="tourActual === 3">
+      <span *ngIf="tourActual !== 0" (click)="tourActual = 0"> start over </span>
+
+      <span (click)="onStart(showAgain.checked)">Let's start!</span>
     </div>
   </div>
 </app-modal>

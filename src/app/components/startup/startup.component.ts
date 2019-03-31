@@ -10,7 +10,7 @@ import {AppService} from '../../services/app.service';
 export class StartupComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
 
-  tour: Array<string> = ['zsák', 'hugy', 'os', 'faleveles', 'ganaj'];
+  tour: Array<string> = ['1', '2', '3', '4'];
   tourActual = 0;
 
   constructor(private appService: AppService) {
