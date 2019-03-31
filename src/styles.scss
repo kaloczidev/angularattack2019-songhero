@@ -10,7 +10,7 @@ body {
   background-origin: border-box;
   background-size: cover;
   background-position: top left;
-  animation: background 23s ease infinite;
+  animation: background 25s linear infinite;
 
 }
 
@@ -22,7 +22,6 @@ a {
 }
 
 @keyframes background {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  from, to { background-position:0 0; }
+  50% { background-position:10% 0; }
 }
