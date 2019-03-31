@@ -1,12 +1,8 @@
-<div [ngClass]="{
-        'hide-iframe': iframeHide,
-        'show-iframe': !iframeHide
-     }">
-  <span class="listen-in-browser">Please click to<br>"Listen in browser"<br>to continue</span>
+<div class="hide-iframe">
   <iframe
     #audio
-    width="{{iframeHide ? '200px' : '90%'}}"
-    height="{{iframeHide ? '200px' : '35%'}}"
+    width="200px"
+    height="200px"
     scrolling="no"
     frameborder="no"
     allow="autoplay"

@@ -23,7 +23,7 @@ export class AudioComponent implements OnInit {
     }
   ];
 
-  constructor(private player: PlayerService) { }
+  constructor(public player: PlayerService) { }
 
   ngOnInit() {
     this.player.setTrack(this.songs[0]);

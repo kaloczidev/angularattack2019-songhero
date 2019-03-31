@@ -24,6 +24,7 @@ export class PlayerService {
   urlChange = new BehaviorSubject<string>('');
   onPositionChanged = new Subject<TrackPosition>();
   seek = new Subject<number>();
+  loading = new BehaviorSubject<boolean>(false);
   track: Track;
 
   constructor() {

@@ -3,5 +3,6 @@
 <button (click)="seek()">Seek to end</button>
 <button (click)="finish()">Finish</button>
 <span #time></span>
+<span *ngIf="player.loading | async">Loading</span>
 
 

@@ -16,7 +16,6 @@ export class PlayerComponent implements OnInit {
   BASE_URL = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
   url: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
   md = new MobileDetect(window.navigator.userAgent);
-  iframeHide = true;
   isMobile = this.md.mobile() || this.md.tablet() || this.md.phone();
   status = PlayerStatus.IDLE;
 
@@ -35,8 +34,8 @@ export class PlayerComponent implements OnInit {
 
     this.player.urlChange
       .subscribe((url) => {
-      this.setUrl(url);
-    });
+        this.setUrl(url);
+      });
 
     this.player.seek.subscribe((ms) => {
       if (this.player.status.getValue() === PlayerStatus.PLAY) {
@@ -51,7 +50,7 @@ export class PlayerComponent implements OnInit {
 
   play() {
     this.setVolume(100);
-    if (this.player.status.getValue() === PlayerStatus.PLAY) this.player.seekTo(0);
+    this.player.seekTo(0);
     SC.Widget(this.audio.nativeElement).play();
   }
 
@@ -67,16 +66,19 @@ export class PlayerComponent implements OnInit {
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY_PROGRESS);
     SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.FINISH);
 
-    SC.Widget(this.audio.nativeElement)
-      .bind(SC.Widget.Events.FINISH, (event: TrackPosition) => this.zone.run(() => {
-        this.player.status.next(PlayerStatus.FINISHED);
+    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.FINISH, (event: TrackPosition) => this.zone.run(() => {
+      this.player.status.next(PlayerStatus.FINISHED);
     }));
-    SC.Widget(this.audio.nativeElement)
-      .bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => this.zone.run(() => {
-        if (this.status === PlayerStatus.PLAY) this.player.onPositionChanged.next(event);
+
+    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => this.zone.run(() => {
+      if (this.player.loading.getValue()) this.player.loading.next(false);
+
+      if (this.status === PlayerStatus.PLAY) this.player.onPositionChanged.next(event);
+      else this.player.pause();
     }));
 
     this.setVolume(0);
+    this.player.loading.next(true);
     SC.Widget(this.audio.nativeElement).play();
   }
 }
