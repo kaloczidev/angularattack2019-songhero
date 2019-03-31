@@ -83,7 +83,7 @@ export class RecorderComponent {
       usePreventDefault = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = 1;
-      this.dollService.bolintRight();
+      this.dollService.shakeHead();
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = 1;

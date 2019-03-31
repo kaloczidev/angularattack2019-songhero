@@ -7,25 +7,19 @@ import { Injectable } from '@angular/core';
 })
 export class DollService {
   mouthDirection: Subject<number> = new Subject();
-  headBolintas: Subject<number> = new Subject();
+  shake: Subject<boolean> = new Subject();
   wink: Subject<boolean> = new Subject();
 
-  openMouth() {
+  openMouth(): void {
     this.mouthDirection.next(10);
   }
 
-  closeMouth() {
+  closeMouth(): void {
     this.mouthDirection.next(-10);
   }
 
-
-  bolintRight(): any {
-    this.headBolintas.next(8);
-  }
-
-
-  bolintLeft(): any {
-    this.headBolintas.next(-8);
+  shakeHead(): void {
+    this.shake.next(true);
   }
 
   doWink(): any {

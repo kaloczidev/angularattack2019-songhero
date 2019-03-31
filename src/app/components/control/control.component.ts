@@ -70,7 +70,7 @@ export class ControlComponent implements OnInit {
       usePreventDefault = true;
     } else if (event.code === 'ArrowRight') {
       this.arrowRightPressed = true;
-      this.dollService.bolintRight();
+      this.dollService.shakeHead();
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
       this.keyWPressed = true;
