@@ -1,9 +1,9 @@
 <app-modal #modal>
   <div class="icon-wrapper">
     <div class="title">
-      Hello, human!
+      Welcome to Roxbury!
     </div>
-    <button class="button" (click)="onStart(showAgain.checked)">Skip tour</button>
+    <button class="button link" (click)="onStart(showAgain.checked)">Skip tour</button>
   </div>
   <div class="slideshow">
     <div class="slide">
@@ -13,18 +13,22 @@
   <div class="navigation">
     <div>
       <input id="show-again" name="show-again" #showAgain type="checkbox">
-      <label for="show-again">Do not show this dialog again.</label>
+      <label for="show-again" class="button" >
+      <img src="/assets/icons/{{showAgain.checked ? 'check' : 'checknot' }}.svg" width="16px" height="16px" viewport="0 0 64 64" alt="">
+        Never show again
+      </label>
+
     </div>
     <div class="slideshow-navigation" *ngIf="tourActual !== 3">
-      <span *ngIf="tourActual !== 0" (click)="prev()">< prev</span>
-      {{tourActual + 1}}/{{tour.length}}
-      <span (click)="next()">next ></span>
+      <span *ngIf="tourActual !== 0" (click)="prev()"class="button">< prev</span>
+      <span class="steps">{{tourActual + 1}}/{{tour.length}}</span>
+      <span (click)="next()" class="button primary">next ></span>
     </div>
 
     <div class="slideshow-navigation" *ngIf="tourActual === 3">
-      <span *ngIf="tourActual !== 0" (click)="tourActual = 0"> start over </span>
+      <span *ngIf="tourActual !== 0" (click)="tourActual = 0" class="button link"> start over </span>
 
-      <span (click)="onStart(showAgain.checked)">Let's start!</span>
+      <span (click)="onStart(showAgain.checked)" class="button primary">Let's start!</span>
     </div>
   </div>
 </app-modal>

@@ -10,7 +10,8 @@ export class ModalComponent implements OnInit {
   closed = false;
   @HostBinding('class.hidden') hiddenHost = true;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -24,8 +25,10 @@ export class ModalComponent implements OnInit {
     this.closed = false;
   }
 
-  transitionend() {
-    this.hiddenHost = true;
+  transitionend(e: TransitionEvent) {
+    if (e.propertyName === 'opacity') {
+      this.hiddenHost = true;
+    }
   }
 
   stopProp(event: MouseEvent) {

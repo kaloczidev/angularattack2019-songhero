@@ -1,4 +1,4 @@
-<div class="container" #modal (transitionend)="transitionend()" [ngClass]="{
+<div class="container" #modal (transitionend)="transitionend($event)" [ngClass]="{
   close: closed,
   hidden: hiddenHost
 }" (click)="close()">

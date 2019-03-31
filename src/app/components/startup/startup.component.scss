@@ -26,28 +26,14 @@
   justify-content: center;
 }
 
+input[type=checkbox] {
+  opacity: 0;
+  display: none;
+}
 
-$button-color: #512da8;
-
-.button {
-  border: 0;
-  padding: 6px 12px;
-  background-color: $button-color;
-  color: white;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  outline: none;
-
-  &:hover {
-    background-color: lighten($button-color, 5);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.64);
-  }
-
-  &:active {
-    background-color: darken($button-color, 5);
-    outline: none;
-  }
+.steps {
+  padding: 8px 16px;
+  font-size: 16px;
 }
 
 .navigation {

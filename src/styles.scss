@@ -25,3 +25,51 @@ a {
   from, to { background-position:0 0; }
   50% { background-position:10% 0; }
 }
+
+
+
+$button-color: #fc5aa4;
+
+button, .button {
+  border: 0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+
+  &:disabled, &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &.primary {
+    background-color: $button-color;
+    color: white;
+    transition: box-shadow .2s ease;
+
+    box-shadow: none;
+    &:hover {
+      box-shadow: 0 3px 4px rgba(50, 50, 50, 0.54);
+    }
+
+    &:active {
+      background-color: darken($button-color, 5);
+      box-shadow: 0 2px 2px rgba(50, 50, 50, 0.54);
+      outline: none;
+    }
+  }
+
+  &.link {
+    color: $button-color;
+
+    &:hover {
+      color: lighten($button-color, 5);
+    }
+
+    &:active {
+      color: ($button-color, 5);
+    }
+  }
+}
