@@ -1,20 +1,19 @@
-.guy-container {
+.doll-container {
   padding: 20px;
   padding-top: 80px;
-  padding-left:  120px;
+  padding-left: 120px;
 }
 
-.right-arm {
-  transform-origin: 175px 355px;
-  animation: guy-hand 6s linear infinite;
+.doll-right-arm {
+  transform-origin: 293px 443px;
+  animation: doll-hand 6s linear infinite;
 }
 
-.face {
+.doll-face {
   transform-origin: 115px 326px;
 }
 
-
-@keyframes guy-hand {
+@keyframes doll-hand {
   from, to {
     transform: rotate(-10deg);
   }

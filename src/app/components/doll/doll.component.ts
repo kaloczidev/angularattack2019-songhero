@@ -57,8 +57,9 @@ export class DollComponent implements OnInit {
       this.currentY = this.maxY;
     }
 
-    const quadraticShift = 313;
-    this.mouth.nativeElement.setAttribute('d', `M69,243 Q143,${quadraticShift + this.currentY} 191,258Z`);
+    const quadraticShift = 383 ;
+    // this.mouth.nativeElement.setAttribute('d', `M69,243 Q143,${quadraticShift + this.currentY} 191,258Z`);
+    this.mouth.nativeElement.setAttribute('d', `M178,314 Q242,${quadraticShift + this.currentY} 300,328Z`);
 
     if (this.currentY === this.minY || this.currentY === this.maxY) {
       this.stopMouthAnimation();
