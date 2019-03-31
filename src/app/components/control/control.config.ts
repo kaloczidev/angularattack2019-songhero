@@ -1,4 +1,4 @@
-export const DISPLAY_VERTICAL_DIVISION = 30;
+export const DISPLAY_VERTICAL_DIVISION = 100;
 export const DISPLAY_HORIZONTAL_DIVISION = 4;
 export const DISPLAY_DELAY_UNIT = 2;
 export const DISPLAY_COLORS = [
