@@ -3,21 +3,20 @@
     <div class="title">
       Hello, human!
     </div>
-    <img class="icon" src="/assets/icons/close.svg" (click)="modal.close()">
+    <button class="button" (click)="onStart(showAgain.checked)">Skip tour</button>
   </div>
-  <div class="type-header">
-    Default controls
+  <div class="slideshow">
+    <div class="slide">
+      {{tour[tourActual]}}
+    </div>
   </div>
-  <div class="types">
-    <div class="key center-center">W</div>
-    <div class="key center-bottom space"><span>space</span></div>
-    <div class="key center-center">E</div>
-  </div>
-  <div class="button-wrapper">
-      <button class="button" (click)="onStart(showAgain.checked)">Yess, bring it on!</button>
-  </div>
-  <div>
-    <input id="show-again" name="show-again" #showAgain type="checkbox">
-    <label for="show-again">Do not show this dialog again.</label>
+  <div class="navigation">
+    <div>
+      <input id="show-again" name="show-again" #showAgain type="checkbox">
+      <label for="show-again">Do not show this dialog again.</label>
+    </div>
+    <div class="slideshow-navigation">
+      <span *ngIf="tourActual !== 0" (click)="prev()">< prev</span> {{tourActual+1}}/{{tour.length}} <span (click)="next()">next ></span>
+    </div>
   </div>
 </app-modal>
