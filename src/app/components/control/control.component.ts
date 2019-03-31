@@ -10,6 +10,7 @@ import {
   DISPLAY_VERTICAL_DIVISION,
   DISPLAY_WIDTH
 } from './control.config';
+import { PlayerService, PlayerStatus } from '../player/player.service';
 
 declare function require(name: string);
 
@@ -41,14 +42,17 @@ export class ControlComponent implements OnInit {
   private akarmi = DISPLAY_VERTICAL_DIVISION - 1;
 
   private subMap: Uint8Array;
+  private playerStatus;
 
   constructor(private service: ControlService,
               private dollService: DollService,
-              private scoreService: ScoreService
+              private scoreService: ScoreService,
+              private player: PlayerService
   ) {
   }
 
   ngOnInit(): void {
+    this.player.status.subscribe((status) => this.playerStatus = status);
     this.canvas = this.display.nativeElement;
     this.canvas.width = 500;
     this.canvas.height = 800;
@@ -173,7 +177,9 @@ export class ControlComponent implements OnInit {
   }
 
   private stopEvent(event): void {
-    event.stopPropagation();
-    event.preventDefault();
+    if (this.playerStatus === PlayerStatus.PLAY) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
   }
 }
