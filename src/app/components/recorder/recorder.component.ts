@@ -30,18 +30,12 @@ export class RecorderComponent {
   private ePressed = 0;
 
   private recordedDataByteLength = 14500; // TODO: sound duration * ????
-  private spaceKeyPressed = 0;
-  private spaceKeySignal = new Subject<number>();
 
   private recordedData = new Uint8Array(this.recordedDataByteLength);
 
   constructor(private dollService: DollService,
               private playerService: PlayerService,
   ) {
-
-    this.spaceKeySignal.pipe(auditTime(50)).subscribe(val => {
-      this.spaceKeyPressed = val;
-    });
 
     this.playerService.onPositionChanged.subscribe((trackPosition: TrackPosition) => {
       const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
@@ -50,7 +44,7 @@ export class RecorderComponent {
       if (index - this.previousIndex < 2) {
         this.recordedData[index] = BitValuesUtil.set(keyOrder);
       } else {
-        for (let i = this.previousIndex; i < index; ++i) {
+        for (let i = this.previousIndex + 1; i < index; ++i) {
           this.recordedData[i] = BitValuesUtil.set(keyOrder);
         }
       }
