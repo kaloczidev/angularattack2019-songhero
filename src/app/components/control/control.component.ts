@@ -110,7 +110,7 @@ export class ControlComponent implements OnInit {
   }
 
   private calculateCanvasSize() {
-    const height = window.innerHeight - 90 | 0;
+    const height = window.innerHeight - 200 | 0;
 
     this.canvas.width = DISPLAY_WIDTH;
     this.canvas.height = height;
