@@ -26,8 +26,8 @@
       <span class="group">
         <input type="text" (input)="onNameChange($event)" class="input-name" placeholder="Your name" autoFocus="true"/>
         <button class="button primary" [disabled]="username.length === 0" type="submit">Submit score</button>
+        <button type="button" class="button  just-retry" (click)="retry()">Retry</button>
       </span>
-      <button type="button" class="button  just-retry" (click)="retry()">Retry</button>
     </form>
     <div *ngIf="submitted" class="footer">
       <button type="button" class="button primary" (click)="retry()">Start again!</button>

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {Track} from '../audio/audio.component';
+import { ScoreService } from '../score/score.service';
 
 export interface TrackPosition {
   currentPosition: number;
@@ -27,11 +28,12 @@ export class PlayerService {
   loading = new BehaviorSubject<boolean>(false);
   track: Track;
 
-  constructor() {
+  constructor(private score: ScoreService) {
   }
 
   play() {
     this.status.next(PlayerStatus.PLAY);
+    this.score.reset();
   }
 
   pause() {

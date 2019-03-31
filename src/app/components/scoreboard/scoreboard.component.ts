@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {PlayerService, PlayerStatus} from '../player/player.service';
 import {ScoreService} from '../score/score.service';
-import { getLeaderboard, save } from '../../utils/firestore';
+import { getLeaderboard, db, save } from '../../utils/firestore';
 
 @Component({
   selector: 'app-scoreboard',
@@ -47,7 +47,14 @@ export class ScoreboardComponent implements OnInit {
     event.preventDefault();
     this.submitted = true;
     save(this.username, (window as any).encryptedScore).then(() => {
-      setTimeout(() => getLeaderboard().then((scores) => this.scores = scores), 1000);
+      const unsubscribe = db.onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) =>  {
+          if (change.type === 'modified') {
+            getLeaderboard().then((scores) => this.scores = scores);
+            unsubscribe();
+          }
+        });
+      });
     }).catch(() => {
       alert('Sorry backend is not available. Unfortunately we can\'t save your score');
       this.submitted = false;

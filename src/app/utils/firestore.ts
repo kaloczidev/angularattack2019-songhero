@@ -6,10 +6,9 @@ export interface ScoreResult {
 }
 
 firebase.firestore().settings({});
-const db = firebase.firestore().collection('leaderboard');
+export const db = firebase.firestore().collection('leaderboard');
 
 export const save = (name, score) => {
-  console.log(name, score);
   return new Promise((resolve, reject) => {
     firebase.auth().signInAnonymously().then(() => {
       db

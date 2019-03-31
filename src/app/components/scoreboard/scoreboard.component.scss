@@ -58,9 +58,10 @@ h1 {
 
 .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
+  height: 120px;
 
   .group {
     padding-bottom: 12px;
