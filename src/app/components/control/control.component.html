@@ -1,21 +1,21 @@
 <canvas class="display" #display></canvas>
 <div class="keys">
-  <button class="key"
-          [ngClass]="{keydown: wPressed}"
+  <button class="key w-key"
+          [ngClass]="{keydown: wPressed, active: wIsActive}"
           (mousedown)="keyWDown($event)"
           (mouseup)="keyWUp($event)">
     W
   </button>
 
   <button class="key space"
-          [ngClass]="{keydown: spacePressed}"
+          [ngClass]="{keydown: spacePressed, active: spaceIsActive}"
           (mousedown)="spaceDown($event)"
           (mouseup)="spaceUp($event)">
     space
   </button>
 
-  <button class="key"
-          [ngClass]="{keydown: ePressed}"
+  <button class="key e-key"
+          [ngClass]="{keydown: ePressed, active: eIsActive}"
           (mousedown)="keyEDown($event)"
           (mouseup)="keyEUp($event)">
     E

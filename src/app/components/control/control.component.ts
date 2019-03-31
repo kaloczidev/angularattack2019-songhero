@@ -28,6 +28,10 @@ export class ControlComponent implements OnInit {
   wPressed = false;
   ePressed = false;
 
+  spaceIsActive = false;
+  wIsActive = false;
+  eIsActive = false;
+
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
@@ -57,11 +61,20 @@ export class ControlComponent implements OnInit {
     this.service.map = new Uint8Array(whatIsLoveBuffer);
     this.service.subMap.subscribe((subMap: Uint8Array) => {
       this.subMap = subMap;
-      this.draw();
+
+      let count = 2;
+      const length = subMap.length;
+      if (length < count) count = length;
+
+      this.wIsActive = this.isActive(0, count);
+      this.spaceIsActive = this.isActive(1, count);
+      this.eIsActive = this.isActive(2, count);
 
       this.setScore(this.wPressed, 0);
       this.setScore(this.spacePressed, 1);
       this.setScore(this.ePressed, 2);
+
+      this.draw();
     });
   }
 
@@ -159,5 +172,13 @@ export class ControlComponent implements OnInit {
   private stopEvent(event): void {
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  private isActive(bitIndex: number, count: number): boolean {
+    for (let i = 0; i < count; ++i) {
+      if (BitValuesUtil.getBit(this.subMap[i], bitIndex)) return true;
+    }
+
+    return false;
   }
 }
