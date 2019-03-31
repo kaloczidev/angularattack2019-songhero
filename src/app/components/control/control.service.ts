@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { PlayerService } from '../player/player.service';
-import { DISPLAY_DELAY_UNIT, DISPLAY_VERTICAL_DIVISION } from './control.config';
+import { DISPLAY_VERTICAL_DIVISION } from './control.config';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ControlService {
 
   constructor(private playerService: PlayerService) {
     this.playerService.onPositionChanged.subscribe((trackPosition) => {
-      const index = (this.map.length * trackPosition.relativePosition | 0) - DISPLAY_DELAY_UNIT;
+      const index = this.map.length * trackPosition.relativePosition | 0;
       if (index > 0) this.subMap.next(this.map.subarray(index, index + DISPLAY_VERTICAL_DIVISION));
     });
   }

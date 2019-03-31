@@ -62,7 +62,7 @@ export class ControlComponent implements OnInit {
     this.service.subMap.subscribe((subMap: Uint8Array) => {
       this.subMap = subMap;
 
-      const nextActiveItem = this.subMap[1] || null;
+      const nextActiveItem = this.subMap[0] || null;
       if (nextActiveItem) {
         this.wIsActive = BitValuesUtil.getBit(nextActiveItem, 0);
         this.spaceIsActive = BitValuesUtil.getBit(nextActiveItem, 1);
