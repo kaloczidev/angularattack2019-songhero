@@ -29,11 +29,19 @@
   border-radius: 4px;
   border-top: 1px solid #f5f5f5;
   text-shadow: 0 1px 0 #f5f5f5;
+  transition: box-shadow ease .1s, transform ease .1s;
+
 }
 
 .w-key {
+  &.active.keydown {
+    background: #F2C50D;
+    color: white;
+
+  }
+
   &.active {
-    box-shadow: 0 0 50px 30px #F2C50D;
+    box-shadow: 0 0 20px 10px #F2C50D;
   }
 }
 
@@ -42,21 +50,34 @@
   margin-left: 64px;
   margin-right: 64px;
 
+  &.active.keydown {
+    background: #0DF2C9;
+    color: white;
+  }
+
   &.active {
-    box-shadow: 0 0 50px 30px #0DF2C9;
+    box-shadow: 0 0 20px 10px #0DF2C9;
   }
 }
 
 .e-key {
+  &.active.keydown {
+    background: #FF6E2B;
+    color: white;
+  }
+
   &.active {
-    box-shadow: 0 0 50px 30px #FF6E2B;
+    box-shadow: 0 0 20px 10px #FF6E2B;
   }
 }
 
 .keydown {
   color: #888;
   background: #ebeced;
-  margin-top: 7px;
+  transform: translateY(1px) scale(1.04);
   margin-bottom: 0;
   border-top: 1px solid #eee;
+  &.active {
+    border-color: transparent;
+  }
 }
