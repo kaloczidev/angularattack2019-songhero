@@ -1,11 +1,16 @@
 @import "../../../variables";
 
-.score-wrapper {
+:host {
   position: fixed;
+  width: 50%;
   top: 20px;
   right: 20px;
+}
+
+.score-wrapper {
   font-size: 2rem;
   color: $theme-babakek;
+
   .score-title, .score-value {
     display: block;
   }
@@ -13,8 +18,10 @@
   .score-title {
     font-size: 1rem;
   }
+
   .score-value {
     transition: transform linear .1s;
+
     &.change {
       animation: enlarge .1s linear;
       animation-fill-mode: forwards;
