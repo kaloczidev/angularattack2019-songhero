@@ -1,6 +1,3 @@
-import { Subject } from 'rxjs';
-import { auditTime } from 'rxjs/operators';
-
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { DollService } from '../doll/doll.service';
 import { PlayerService, PlayerStatus, TrackPosition } from '../player/player.service';
@@ -41,10 +38,10 @@ export class RecorderComponent {
       const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
       const keyOrder = [this.wPressed, this.spacePressed, this.ePressed];
 
-      if (index - this.previousIndex < 2) {
+      if (index === this.previousIndex + 1) {
         this.recordedData[index] = BitValuesUtil.set(keyOrder);
       } else {
-        for (let i = this.previousIndex + 1; i < index; ++i) {
+        for (let i = this.previousIndex + 1; i <= index; ++i) {
           this.recordedData[i] = BitValuesUtil.set(keyOrder);
         }
       }
