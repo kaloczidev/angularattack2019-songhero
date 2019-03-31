@@ -35,6 +35,12 @@ export class PlayerComponent implements OnInit {
       .subscribe((url) => {
       this.setUrl(url);
     });
+
+    this.player.seek.subscribe((ms) => {
+      if (this.player.status.getValue() === PlayerStatus.PLAY) {
+        SC.Widget(this.audio.nativeElement).seekTo(ms);
+      }
+    });
   }
 
   setUrl(src: string) {

@@ -23,6 +23,7 @@ export class PlayerService {
   status = new BehaviorSubject<PlayerStatus>(PlayerStatus.IDLE);
   urlChange = new BehaviorSubject<string>('');
   onPositionChanged = new Subject<TrackPosition>();
+  seek = new Subject<number>();
   track: Track;
 
   constructor() {
@@ -38,6 +39,10 @@ export class PlayerService {
 
   getDuration() {
     return this.track.duration;
+  }
+
+  seekTo(ms: number) {
+    this.seek.next(ms);
   }
 
   setTrack(track: Track) {

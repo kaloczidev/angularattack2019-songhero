@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 function getStartUpInit() {
   try {
     const value = JSON.parse(localStorage.getItem('startUp'));
-    return value === null;
+    return value === null || value;
   } catch (e) {
     return true;
   }

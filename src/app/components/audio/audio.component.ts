@@ -4,7 +4,7 @@ import {PlayerService} from '../player/player.service';
 export interface Track {
   name: string;
   trackId: string;
-  duration: string;
+  duration: number;
 }
 
 @Component({
@@ -19,22 +19,22 @@ export class AudioComponent implements OnInit {
     {
       name: 'WhatIsLove',
       trackId: '34743391',
-      duration: '254660'
+      duration: 254660
     },
     // {
     //   name: 'Robin Schulz - Sun Goes Down',
     //   trackId: '167810531',
-    //   duration: '176211'
+    //   duration: 176211
     // },
     // {
     //   name: 'Lost Frequencies - Are you with me',
     //   trackId: '125851434',
-    //   duration: '152360'
+    //   duration: 152360
     // },
     // {
     //   name: 'Random',
     //   trackId: '208277289',
-    //   duration: '198260'
+    //   duration: 198260
     // }
   ];
 
@@ -47,7 +47,7 @@ export class AudioComponent implements OnInit {
       const minute = current / 60 | 0;
       const second = (current - minute * 60);
       const sec: string = second < 10 ? `0${second}` : second.toString();
-      this.time.nativeElement.innerText = `${actual.relativePosition * 100 | 0}% ${minute}:${sec}`;
+      this.time.nativeElement.innerText = ` ${actual.relativePosition * 100 | 0}% ${minute}:${sec}`;
     });
   }
 
@@ -58,5 +58,9 @@ export class AudioComponent implements OnInit {
 
   pause() {
     this.player.pause();
+  }
+
+  seek() {
+    this.player.seek.next(this.player.track.duration - 3000);
   }
 }

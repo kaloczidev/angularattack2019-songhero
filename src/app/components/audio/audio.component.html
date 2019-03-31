@@ -1,9 +1,9 @@
-<div #time>
-</div>
-<div *ngFor="let song of songs">
+<span *ngFor="let song of songs">
   {{song.name}}
   <button (click)="play(song)">Play</button>
-</div>
+</span>
 <button (click)="pause()">Pause</button>
+<button (click)="seek()">Seek to end</button>
+<span #time></span>
 
 
