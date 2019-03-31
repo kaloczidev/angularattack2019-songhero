@@ -62,13 +62,16 @@ export class ControlComponent implements OnInit {
     this.service.subMap.subscribe((subMap: Uint8Array) => {
       this.subMap = subMap;
 
-      let count = 2;
-      const length = subMap.length;
-      if (length < count) count = length;
-
-      this.wIsActive = this.isActive(0, count);
-      this.spaceIsActive = this.isActive(1, count);
-      this.eIsActive = this.isActive(2, count);
+      const nextActiveItem = this.subMap[1] || null;
+      if (nextActiveItem) {
+        this.wIsActive = BitValuesUtil.getBit(nextActiveItem, 0);
+        this.spaceIsActive = BitValuesUtil.getBit(nextActiveItem, 1);
+        this.eIsActive = BitValuesUtil.getBit(nextActiveItem, 2);
+      } else {
+        this.wIsActive = false;
+        this.spaceIsActive = false;
+        this.eIsActive = false;
+      }
 
       this.setScore(this.wPressed, 0);
       this.setScore(this.spacePressed, 1);
@@ -159,7 +162,7 @@ export class ControlComponent implements OnInit {
   }
 
   private setScore(keyPressed: boolean, bitIndex: number): void {
-    if (keyPressed) {
+    if (keyPressed && this.subMap[0]) {
       encypt(this.subMap[0], bitIndex, keyPressed);
       if (BitValuesUtil.getBit(this.subMap[0], bitIndex) === keyPressed) {
         this.scoreService.incrase();
@@ -172,13 +175,5 @@ export class ControlComponent implements OnInit {
   private stopEvent(event): void {
     event.stopPropagation();
     event.preventDefault();
-  }
-
-  private isActive(bitIndex: number, count: number): boolean {
-    for (let i = 0; i < count; ++i) {
-      if (BitValuesUtil.getBit(this.subMap[i], bitIndex)) return true;
-    }
-
-    return false;
   }
 }
