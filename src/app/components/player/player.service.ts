@@ -31,7 +31,6 @@ export class PlayerService {
 
   play() {
     this.status.next(PlayerStatus.PLAY);
-    console.log('genny');
   }
 
   pause() {

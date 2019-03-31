@@ -20,22 +20,7 @@ export class AudioComponent implements OnInit {
       name: 'WhatIsLove',
       trackId: '34743391',
       duration: 254660
-    },
-    // {
-    //   name: 'Robin Schulz - Sun Goes Down',
-    //   trackId: '167810531',
-    //   duration: 176211
-    // },
-    // {
-    //   name: 'Lost Frequencies - Are you with me',
-    //   trackId: '125851434',
-    //   duration: 152360
-    // },
-    // {
-    //   name: 'Random',
-    //   trackId: '208277289',
-    //   duration: 198260
-    // }
+    }
   ];
 
   constructor(private player: PlayerService) { }
