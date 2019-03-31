@@ -123,7 +123,7 @@ export class ControlComponent implements OnInit {
     this.canvas.width = DISPLAY_WIDTH;
     this.canvas.height = height;
 
-    this.unitHeight = height / DISPLAY_VERTICAL_DIVISION | 0;
+    this.unitHeight = height / DISPLAY_VERTICAL_DIVISION;
     this.yArray = Array.from(new Array(DISPLAY_VERTICAL_DIVISION), (val, index) => index * this.unitHeight);
   }
 
