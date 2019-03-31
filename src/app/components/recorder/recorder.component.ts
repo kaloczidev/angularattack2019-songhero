@@ -19,7 +19,7 @@ import { BitValuesUtil } from '../../utils/bitValues.util';
       padding: 10px;
     }
   `],
-  template: 'RECORDER: Don\'t forget to remove!!!! <input type="checkbox" checked="checked" #dwr> Download Record<br>',
+  template: 'RECORDER: Don\'t forget to remove!!!! <input type="checkbox" #dwr> Download Record<br>',
 })
 export class RecorderComponent {
   @ViewChild('dwr') dwr: ElementRef;

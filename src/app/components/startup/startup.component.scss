@@ -24,12 +24,21 @@
   justify-content: center;
 }
 
-
-.key{
-  cursor: pointer;
+.center-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.center-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+
+
+.key{
+  cursor: pointer;
   color: #aaa;
   font: bold 9pt arial;
   text-decoration: none;
@@ -60,6 +69,10 @@
   filter: dropshadow(color=#f5f5f5, offx=0, offy=1);
 }
 
+.space {
+  width: 85px;
+}
+
 .key:active, .keydown {
   color: #888;
   background: #ebeced;
@@ -76,32 +89,37 @@
   border-top: 1px solid #eee;
 }
 
-.start-button-wrapper {
+.key span {
+  text-align: center;
+  font-size: 7.5pt;
+  text-transform: lowercase;
+}
+
+$button-color: #512da8;
+.button-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  .start-button {
+  justify-content: center;
+  .button {
     border: 0;
-    padding: 12px;
-    background-color: #0097a7;
+    padding: 6px 12px;
+    background-color: $button-color;
     color: white;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
+    outline: none;
     &:hover {
-      background-color: #00838f;
+      background-color: lighten($button-color, 5);
       box-shadow: 0 0 4px 0 rgba(0,0,0,0.64);
     }
     &:active {
-      background-color: #006064;
+      background-color: darken($button-color, 5);
+      outline: none;
     }
   }
 }
 
 .hidden {
   display: none;
-}
-
-button, button:active {
-  outline: none; // this one
 }
