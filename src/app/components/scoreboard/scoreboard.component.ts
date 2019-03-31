@@ -46,7 +46,9 @@ export class ScoreboardComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
     this.submitted = true;
-    save(this.username, this.score).catch(() => {
+    save(this.username, (window as any).encryptedScore).then(() => {
+      setTimeout(() => getLeaderboard().then((scores) => this.scores = scores), 1000);
+    }).catch(() => {
       alert('Sorry backend is not available. Unfortunately we can\'t save your score');
       this.submitted = false;
     });

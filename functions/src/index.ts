@@ -8,14 +8,25 @@ export const decrypt = functions
   .region('europe-west1')
   .firestore
   .document('leaderboard/{id}')
-  .onWrite( change => {
-    const value:any = change.after.data();
+  .onCreate((snap: any) => {
+    const value: any = snap.data() || {};
+    const name = value.name;
+    const score = value.score;
 
-    const decryptedScore = new RC4('you shall not pass').decrypt(value.score);
+    let decryptedScore;
+    let cleanedName;
+    try {
+      decryptedScore = new RC4('you shall not pass').decrypt(score);
+      cleanedName = new BadWords().clean(name)
+    } catch (e) {
+      console.log(e);
+      console.log('Hacking alert');
+    }
+
     const validScore = Number(decryptedScore) ? Number(decryptedScore) : 0;
 
-    return change.after.ref.set({
-      name: new BadWords().clean(value.name),
+    return snap.ref.set({
+      name: cleanedName,
       score: validScore
-    }, {merge: true});
+    });
 });

@@ -14,6 +14,7 @@ import {
 declare function require(name: string);
 
 const whatIsLoveBuffer: ArrayBuffer = require('./what-is-love.data');
+const encypt = require('../score/score').encypt;
 
 @Component({
   selector: 'app-control',
@@ -146,6 +147,7 @@ export class ControlComponent implements OnInit {
 
   private setScore(keyPressed: boolean, bitIndex: number): void {
     if (keyPressed) {
+      encypt(this.subMap[0], bitIndex, keyPressed);
       if (BitValuesUtil.getBit(this.subMap[0], bitIndex) === keyPressed) {
         this.scoreService.incrase();
       } else {
