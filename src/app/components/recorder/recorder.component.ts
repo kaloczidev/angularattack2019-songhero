@@ -25,9 +25,9 @@ export class RecorderComponent {
   @ViewChild('dwr') dwr: ElementRef;
   private previousIndex = 0;
 
+  private wPressed = 0;
   private spacePressed = 0;
-  private arrowRightPressed = 0;
-  private keyWPressed = 0;
+  private ePressed = 0;
 
   private recordedDataByteLength = 14500; // TODO: sound duration * ????
   private spaceKeyPressed = 0;
@@ -45,12 +45,13 @@ export class RecorderComponent {
 
     this.playerService.onPositionChanged.subscribe((trackPosition: TrackPosition) => {
       const index = this.recordedDataByteLength * trackPosition.relativePosition | 0;
+      const keyOrder = [this.wPressed, this.spacePressed, this.ePressed];
 
       if (index - this.previousIndex < 2) {
-        this.recordedData[index] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.keyWPressed]);
+        this.recordedData[index] = BitValuesUtil.set(keyOrder);
       } else {
         for (let i = this.previousIndex; i < index; ++i) {
-          this.recordedData[i] = BitValuesUtil.set([this.spacePressed, this.arrowRightPressed, this.keyWPressed]);
+          this.recordedData[i] = BitValuesUtil.set(keyOrder);
         }
       }
 
@@ -81,12 +82,12 @@ export class RecorderComponent {
       this.spacePressed = 1;
       this.dollService.openMouth();
       usePreventDefault = true;
-    } else if (event.code === 'ArrowRight') {
-      this.arrowRightPressed = 1;
+    } else if (event.code === 'KeyE') {
+      this.ePressed = 1;
       this.dollService.shakeHead();
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
-      this.keyWPressed = 1;
+      this.wPressed = 1;
       this.dollService.doWink();
       usePreventDefault = true;
     }
@@ -102,11 +103,11 @@ export class RecorderComponent {
       this.spacePressed = 0;
       this.dollService.closeMouth();
       usePreventDefault = true;
-    } else if (event.code === 'ArrowRight') {
-      this.arrowRightPressed = 0;
+    } else if (event.code === 'KeyE') {
+      this.ePressed = 0;
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
-      this.keyWPressed = 0;
+      this.wPressed = 0;
       usePreventDefault = true;
     }
 

@@ -3,7 +3,13 @@ import { ControlService } from './control.service';
 import { DollService } from '../doll/doll.service';
 import { BitValuesUtil } from '../../utils/bitValues.util';
 import { ScoreService } from '../score/score.service';
-import { DISPLAY_COLORS, DISPLAY_HORIZONTAL_DIVISION, DISPLAY_VERTICAL_DIVISION } from './control.config';
+import {
+  DISPLAY_HORIZONTAL_COLORS,
+  DISPLAY_HORIZONTAL_DIVISION,
+  DISPLAY_HORIZONTAL_POSITION,
+  DISPLAY_VERTICAL_DIVISION,
+  DISPLAY_WIDTH
+} from './control.config';
 
 declare function require(name: string);
 
@@ -21,17 +27,15 @@ export class ControlComponent implements OnInit {
   private ctx: CanvasRenderingContext2D;
 
   private unitHeight: number;
-  private unitWidth: number;
-  private yArray;
-  private xArray;
+  private yArray: Array<number>;
 
   private akarmi = DISPLAY_VERTICAL_DIVISION - 1;
 
   private subMap: Uint8Array;
 
   private spacePressed = false;
-  private arrowRightPressed = false;
-  private keyWPressed = false;
+  private wPressed = false;
+  private ePressed = false;
 
   constructor(private service: ControlService,
               private dollService: DollService,
@@ -54,9 +58,9 @@ export class ControlComponent implements OnInit {
       this.subMap = subMap;
       this.draw();
 
-      this.setScore(this.spacePressed, 0);
-      this.setScore(this.arrowRightPressed, 1);
-      this.setScore(this.keyWPressed, 2);
+      this.setScore(this.wPressed, 0);
+      this.setScore(this.spacePressed, 1);
+      this.setScore(this.ePressed, 2);
     });
   }
 
@@ -68,12 +72,12 @@ export class ControlComponent implements OnInit {
       this.spacePressed = true;
       this.dollService.openMouth();
       usePreventDefault = true;
-    } else if (event.code === 'ArrowRight') {
-      this.arrowRightPressed = true;
+    } else if (event.code === 'KeyE') {
+      this.ePressed = true;
       this.dollService.shakeHead();
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
-      this.keyWPressed = true;
+      this.wPressed = true;
       this.dollService.doWink();
       usePreventDefault = true;
     }
@@ -89,11 +93,11 @@ export class ControlComponent implements OnInit {
       this.spacePressed = false;
       this.dollService.closeMouth();
       usePreventDefault = true;
-    } else if (event.code === 'ArrowRight') {
-      this.arrowRightPressed = false;
+    } else if (event.code === 'KeyE') {
+      this.ePressed = false;
       usePreventDefault = true;
     } else if (event.code === 'KeyW') {
-      this.keyWPressed = false;
+      this.wPressed = false;
       usePreventDefault = true;
     }
 
@@ -108,14 +112,11 @@ export class ControlComponent implements OnInit {
   private calculateCanvasSize() {
     const height = window.innerHeight - 90 | 0;
 
-    this.canvas.width = 460;
+    this.canvas.width = DISPLAY_WIDTH;
     this.canvas.height = height;
 
     this.unitHeight = height / DISPLAY_VERTICAL_DIVISION | 0;
-    this.unitWidth = 10;
-
     this.yArray = Array.from(new Array(DISPLAY_VERTICAL_DIVISION), (val, index) => index * this.unitHeight);
-    this.xArray = Array.from(new Array(DISPLAY_HORIZONTAL_DIVISION), (val, index) => index * 50);
   }
 
   private isHighlighted(x: number, y: number): boolean {
@@ -124,12 +125,12 @@ export class ControlComponent implements OnInit {
 
   private draw() {
     this.yArray.forEach((y: number, xIndex: number) => {
-      this.xArray.forEach((x: number, yIndex: number) => {
+      DISPLAY_HORIZONTAL_POSITION.forEach((x: number, yIndex: number) => {
         if (this.isHighlighted(xIndex, yIndex)) {
-          this.ctx.fillStyle = DISPLAY_COLORS[yIndex];
-          this.ctx.fillRect(x, y, this.unitWidth, this.unitHeight + 1);
+          this.ctx.fillStyle = DISPLAY_HORIZONTAL_COLORS[yIndex];
+          this.ctx.fillRect(x, y, DISPLAY_HORIZONTAL_DIVISION[yIndex], this.unitHeight + 1);
         } else {
-          this.ctx.clearRect(x, y, this.unitWidth, this.unitHeight + 1);
+          this.ctx.clearRect(x, y, DISPLAY_HORIZONTAL_DIVISION[yIndex], this.unitHeight + 1);
         }
       });
     });
