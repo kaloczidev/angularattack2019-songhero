@@ -5,22 +5,32 @@
       You've scored <strong>{{score}}</strong> points. Can you beat the others?
     </p>
     <h2 class="score-header">Best singers</h2>
-    <ul>
-      <li *ngFor="let score of scores">
-        {{score.name}} : {{score.score}}
-      </li>
-    </ul>
+    <table class="score-board">
+      <thead>
+      <tr>
+        <td>Singer</td>
+        <td>Points</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let score of scores" [ngClass]="{highlight: score.name===username}">
+        <td >{{score.name}}</td>
+        <td>{{score.score}}</td>
+      </tr>
+      </tbody>
+    </table>
     <br>
-    <form *ngIf="!submitted" (submit)="onSubmit($event)">
-      <label>
+
+    <form *ngIf="!submitted" (submit)="onSubmit($event)" class="footer">
+      <p>Get on the scoreboard!</p>
+      <span class="group">
         <input type="text" (input)="onNameChange($event)" class="input-name" placeholder="Your name" autoFocus="true"/>
-      </label>
-      <button class="button primary" [disabled]="username.length === 0" type="submit">Submit score</button>
-      <button type="button" class="button link" (click)="retry()">Retry</button>
+        <button class="button primary" [disabled]="username.length === 0" type="submit">Submit score</button>
+      </span>
+      <button type="button" class="button  just-retry" (click)="retry()">Retry</button>
     </form>
-    <div *ngIf="submitted">
-      Thank you.
-      <button type="button" class="button primary" (click)="retry()">Retry</button>
+    <div *ngIf="submitted" class="footer">
+      <button type="button" class="button primary" (click)="retry()">Start again!</button>
     </div>
   </div>
 </app-modal>

@@ -3,12 +3,70 @@
 }
 
 .input-name {
-  border: none;
   background-image: none;
   background-color: transparent;
   outline: none;
   box-shadow: none;
-  padding: 12px;
+  padding: 6px 12px;
   font-size: 16px;
-  border-bottom: 1px solid #223242;
+  border: 2px solid rgba(34, 50, 66, 1);
+  border-radius: 8px;
+  margin-right: 12px;
+
+  &:focus {
+    border-color: #FC5AA4;
+  }
+}
+table {
+  margin: 0 auto;
+}
+table thead td {
+  border-bottom: 1px solid rgba(34, 50, 66, 1);
+}
+
+.highlight {
+  color: #fc5aa4;
+
+  td {
+    border-bottom: 1px solid rgba(252, 90, 164, 1);
+  }
+}
+
+td {
+  padding: 4px;
+}
+
+p {
+  padding: 12px;
+}
+
+.nopp {
+  opacity: 0;
+  display: none;
+}
+
+h1 {
+  font-size: 24px;
+  padding-bottom: 16px;
+}
+
+.score-header {
+  font-size: 18px;
+  padding-bottom: 8px;
+  padding-top: 12px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  .group {
+    padding-bottom: 12px;
+  }
+
+  .just-retry {
+    align-self: flex-start;
+  }
 }

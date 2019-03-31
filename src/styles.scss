@@ -50,7 +50,7 @@ button, .button {
     transition: box-shadow .2s ease;
 
     box-shadow: none;
-    &:hover {
+    &:hover:not(:disabled) {
       box-shadow: 0 3px 4px rgba(50, 50, 50, 0.54);
     }
 
