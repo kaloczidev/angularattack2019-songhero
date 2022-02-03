@@ -3,7 +3,7 @@ import {PlayerService, PlayerStatus} from './player.service';
 import {interval} from 'rxjs';
 import {filter, tap} from 'rxjs/operators';
 
-export const REFRESH_RATE = 10;
+export const REFRESH_RATE = 1000 / 60;
 
 @Component({
   selector: 'app-player',
@@ -14,9 +14,7 @@ export class PlayerComponent implements OnInit {
   @ViewChild('audioElement') audio: ElementRef<HTMLAudioElement>;
   status = PlayerStatus.IDLE;
 
-  startPosition = 3000;
-  actualPosition = this.startPosition;
-
+  actualPosition = 0;
   interval = interval(REFRESH_RATE);
 
   constructor(private player: PlayerService) {
@@ -37,14 +35,11 @@ export class PlayerComponent implements OnInit {
       }
     });
 
-
-    const shift = 4000;
-
     this.interval.pipe(
       filter(() => this.player.status.getValue() === PlayerStatus.PLAY),
       tap(() => {
         this.player.onPositionChanged.next({
-          relativePosition: (this.actualPosition - shift) / this.player.duration,
+          relativePosition: this.actualPosition / this.player.duration,
           currentPosition: this.actualPosition
         });
         this.actualPosition += REFRESH_RATE;
@@ -69,15 +64,14 @@ export class PlayerComponent implements OnInit {
     this.audio.nativeElement.volume = volume;
   }
 
-  onCanPlay() {
-  }
-
   onEnded() {
     this.player.status.next(PlayerStatus.FINISHED);
   }
 
   onTimeUpdate() {
-    this.actualPosition = this.audio.nativeElement.currentTime * 1000;
+    if (Math.abs(this.actualPosition - this.audio.nativeElement.currentTime * 1000) > REFRESH_RATE) {
+      this.actualPosition = this.audio.nativeElement.currentTime * 1000;
+    }
   }
 
   onPlay() {
@@ -89,6 +83,6 @@ export class PlayerComponent implements OnInit {
   }
 
   onLoadedData() {
-    this.audio.nativeElement.currentTime = this.startPosition / 1000;
+    this.audio.nativeElement.currentTime = 0;
   }
 }
