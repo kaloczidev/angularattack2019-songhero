@@ -1,5 +1,7 @@
 # SongHero
 
+##Try it here: [https://songhero.surge.sh/](https://songhero.surge.sh/)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
 
 ## Development server
