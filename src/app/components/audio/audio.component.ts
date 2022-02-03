@@ -3,7 +3,6 @@ import {PlayerService, PlayerStatus} from '../player/player.service';
 
 export interface Track {
   name: string;
-  trackId: string;
   duration: number;
 }
 
@@ -18,7 +17,6 @@ export class AudioComponent implements OnInit {
   songs: Array<Track> = [
     {
       name: 'WhatIsLove',
-      trackId: '34743391',
       duration: 254660
     }
   ];
@@ -26,7 +24,6 @@ export class AudioComponent implements OnInit {
   constructor(public player: PlayerService) { }
 
   ngOnInit() {
-    this.player.setTrack(this.songs[0]);
     this.player.onPositionChanged.subscribe((actual) => {
       const current = actual.currentPosition / 1000 | 0;
       const minute = current / 60 | 0;
@@ -45,7 +42,7 @@ export class AudioComponent implements OnInit {
   }
 
   seek() {
-    this.player.seek.next(this.player.track.duration - 3000);
+    this.player.seek.next(this.player.duration - 3000);
   }
 
   finish() {

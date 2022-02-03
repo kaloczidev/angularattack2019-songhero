@@ -1,9 +1,9 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
-import {PlayerService, PlayerStatus, TrackPosition} from './player.service';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import * as MobileDetect from 'mobile-detect';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {PlayerService, PlayerStatus} from './player.service';
+import {interval} from 'rxjs';
+import {filter, tap} from 'rxjs/operators';
 
-declare var SC: any;
+export const REFRESH_RATE = 10;
 
 @Component({
   selector: 'app-player',
@@ -11,22 +11,19 @@ declare var SC: any;
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  @ViewChild('audio') audio: ElementRef;
-  @ViewChild('blur') blur: ElementRef<HTMLInputElement>;
-
-  BASE_URL = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
-  url: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
-  md = new MobileDetect(window.navigator.userAgent);
-  isMobile = this.md.mobile() || this.md.tablet() || this.md.phone();
+  @ViewChild('audioElement') audio: ElementRef<HTMLAudioElement>;
   status = PlayerStatus.IDLE;
-  isSafari = (window as any).safari !== undefined;
 
-  constructor(private player: PlayerService, private sanitizer: DomSanitizer, private zone: NgZone) {
+  startPosition = 3000;
+  actualPosition = this.startPosition;
+
+  interval = interval(REFRESH_RATE);
+
+  constructor(private player: PlayerService) {
   }
 
   ngOnInit() {
     this.player.status.subscribe((status) => {
-      this.blur.nativeElement.focus();
       this.status = status;
       switch (status) {
         case PlayerStatus.PLAY:
@@ -40,74 +37,58 @@ export class PlayerComponent implements OnInit {
       }
     });
 
-    this.player.urlChange
-      .subscribe((url) => {
-        this.setUrl(url);
-      });
 
-    this.player.seek.subscribe((ms) => {
-      if (this.player.status.getValue() === PlayerStatus.PLAY) {
-        SC.Widget(this.audio.nativeElement).seekTo(ms);
-      }
+    const shift = 4000;
+
+    this.interval.pipe(
+      filter(() => this.player.status.getValue() === PlayerStatus.PLAY),
+      tap(() => {
+        this.player.onPositionChanged.next({
+          relativePosition: (this.actualPosition - shift) / this.player.duration,
+          currentPosition: this.actualPosition
+        });
+        this.actualPosition += REFRESH_RATE;
+      })
+    ).subscribe();
+
+    this.player.seek.subscribe((s) => {
+      if (this.player.status.getValue() === PlayerStatus.PLAY) this.audio.nativeElement.currentTime = s;
     });
   }
 
-  setUrl(src: string) {
-    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.BASE_URL}${src}${this.isSafari ? '?auto_play=true' : ''}`);
-  }
-
   play() {
-    if (this.isSafari) {
-      this.setUrl('34743391');
-    }
-    this.setVolume(100);
-    this.player.seekTo(0);
-    SC.Widget(this.audio.nativeElement).play();
+    this.setVolume(1);
+    void this.audio.nativeElement.play();
   }
 
   pause() {
-    SC.Widget(this.audio.nativeElement).pause();
+    this.audio.nativeElement.pause();
   }
 
   setVolume(volume: number) {
-    SC.Widget(this.audio.nativeElement).setVolume(volume);
+    this.audio.nativeElement.volume = volume;
   }
 
-  onload() {
-    SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PLAY_PROGRESS);
-    SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.FINISH);
-    SC.Widget(this.audio.nativeElement).unbind(SC.Widget.Events.PAUSE);
+  onCanPlay() {
+  }
 
-    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.FINISH, (event: TrackPosition) => this.zone.run(() => {
-      this.player.status.next(PlayerStatus.FINISHED);
-    }));
+  onEnded() {
+    this.player.status.next(PlayerStatus.FINISHED);
+  }
 
-    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PAUSE, (event: TrackPosition) => this.zone.run(() => {
-      if (this.isSafari) {
-        this.blur.nativeElement.focus();
-        SC.Widget(this.audio.nativeElement).play();
-      }
-    }));
+  onTimeUpdate() {
+    this.actualPosition = this.audio.nativeElement.currentTime * 1000;
+  }
 
-    SC.Widget(this.audio.nativeElement).bind(SC.Widget.Events.PLAY_PROGRESS, (event: TrackPosition) => this.zone.run(() => {
-      if (this.player.loading.getValue()) {
-        this.player.loading.next(false);
-      }
+  onPlay() {
+    this.player.status.next(PlayerStatus.PLAY);
+  }
 
-      if (this.status === PlayerStatus.PLAY) {
-        if (this.isSafari) {
-          this.setVolume(100);
-        }
-        this.player.onPositionChanged.next(event);
-      } else if (!this.isSafari) {
-        this.player.pause();
-      }
-    }));
+  onDurationChange() {
+    this.player.duration = this.audio.nativeElement.duration * 1000;
+  }
 
-    this.setVolume(0);
-    this.player.loading.next(true);
-    if (!this.isSafari) {
-      SC.Widget(this.audio.nativeElement).play();
-    }
+  onLoadedData() {
+    this.audio.nativeElement.currentTime = this.startPosition / 1000;
   }
 }

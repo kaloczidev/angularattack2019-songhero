@@ -6,9 +6,9 @@ let score = 0;
 window.encryptedScore = '';
 
 setTimeout(function () {
-  SC.Widget(document.querySelector('iframe')).bind(SC.Widget.Events.PLAY, function() {
+  document.querySelector('audio').addEventListener('play', function () {
     score = 0;
-  });
+  })
 }, 2000);
 
 exports.encypt = function (subMapItem, bitIndex, keyPressed) {

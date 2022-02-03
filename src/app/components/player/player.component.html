@@ -1,13 +1,10 @@
 <div class="hide-iframe">
-  <iframe
-    class="iframe"
-    #audio
-    width="200px"
-    height="200px"
-    scrolling="no"
-    frameborder="no"
-    [src]="url"
-    (load)="onload()">
-  </iframe>
-  <button type="text" #blur></button>
+  <audio (play)="onPlay()"
+         (timeupdate)="onTimeUpdate()"
+         (ended)="onEnded()"
+         (durationchange)="onDurationChange()"
+         (loadeddata)="onLoadedData()"
+         (canplay)="onCanPlay()" #audioElement>
+    <source src="assets/haddaway-what-is-love.mp3" type="audio/mp3">
+  </audio>
 </div>
